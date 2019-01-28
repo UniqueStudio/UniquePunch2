@@ -118,9 +118,28 @@ export const infoDetail = async function(req: Request, res: Response) {
         const { db, client } = await databaseConnect();
         const { id } = req.params;
         const detail = await db.collection("sign").findOne({ _id: id });
+        const groupRank = await db
+            .collection("sign")
+            .aggregate([
+                {
+                    $unwind: "$group"
+                },
+                {
+                    $group: {
+                        id: "$group",
+                        count: { $sum: 1 }
+                    }
+                },
+                {
+                    $sort: {
+                        count: -1
+                    }
+                }
+            ])
+            .toArray();
 
         client.close();
-        res.json({ code: 1 });
+        res.json({ code: 1, msg: { detail, group: groupRank } });
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }
