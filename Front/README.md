@@ -46,7 +46,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
   - [Node](#node)
   - [Ruby on Rails](#ruby-on-rails)
 - [Proxying API Requests in Development](#proxying-api-requests-in-development)
-  - ["Invalid Host Header" Errors After Configuring Proxy](#invalid-host-header-errors-after-configuring-proxy)
+  - ['Invalid Host Header' Errors After Configuring Proxy](#invalid-host-header-errors-after-configuring-proxy)
   - [Configuring the Proxy Manually](#configuring-the-proxy-manually)
   - [Configuring a WebSocket Proxy](#configuring-a-websocket-proxy)
 - [Using HTTPS in Development](#using-https-in-development)
@@ -247,7 +247,7 @@ You would need to install an ESLint plugin for your editor first. Then, add a fi
 
 ```js
 {
-  "extends": "react-app"
+  'extends': 'react-app'
 }
 ```
 
@@ -271,16 +271,16 @@ Then add the block below to your `launch.json` file and put it inside the `.vsco
 
 ```json
 {
-  "version": "0.2.0",
-  "configurations": [{
-    "name": "Chrome",
-    "type": "chrome",
-    "request": "launch",
-    "url": "http://localhost:3000",
-    "webRoot": "${workspaceRoot}/src",
-    "userDataDir": "${workspaceRoot}/.vscode/chrome",
-    "sourceMapPathOverrides": {
-      "webpack:///src/*": "${webRoot}/*"
+  'version': '0.2.0',
+  'configurations': [{
+    'name': 'Chrome',
+    'type': 'chrome',
+    'request': 'launch',
+    'url': 'http://localhost:3000',
+    'webRoot': '${workspaceRoot}/src',
+    'userDataDir': '${workspaceRoot}/.vscode/chrome',
+    'sourceMapPathOverrides': {
+      'webpack:///src/*': '${webRoot}/*'
     }
   }]
 }
@@ -326,28 +326,28 @@ Now we can make sure every file is formatted correctly by adding a few lines to 
 Add the following line to `scripts` section:
 
 ```diff
-  "scripts": {
-+   "precommit": "lint-staged",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+  'scripts': {
++   'precommit': 'lint-staged',
+    'start': 'react-scripts start',
+    'build': 'react-scripts build',
 ```
 
 Next we add a 'lint-staged' field to the `package.json`, for example:
 
 ```diff
-  "dependencies": {
+  'dependencies': {
     // ...
   },
-+ "lint-staged": {
-+   "src/**/*.{js,jsx,json,css}": [
-+     "prettier --single-quote --write",
-+     "git add"
++ 'lint-staged': {
++   'src/**/*.{js,jsx,json,css}': [
++     'prettier --single-quote --write',
++     'git add'
 +   ]
 + },
-  "scripts": {
+  'scripts': {
 ```
 
-Now, whenever you make a commit, Prettier will format the changed files automatically. You can also run `./node_modules/.bin/prettier --single-quote --write "src/**/*.{js,jsx,json,css}"` to format your entire project for the first time.
+Now, whenever you make a commit, Prettier will format the changed files automatically. You can also run `./node_modules/.bin/prettier --single-quote --write 'src/**/*.{js,jsx,json,css}'` to format your entire project for the first time.
 
 Next you might want to integrate Prettier in your favorite editor. Read the section on [Editor Integration](https://prettier.io/docs/en/editors.html) on the Prettier GitHub page.
 
@@ -407,7 +407,7 @@ import Button from './Button'; // Import a component from another file
 
 class DangerButton extends Component {
   render() {
-    return <Button color="red" />;
+    return <Button color='red' />;
   }
 }
 
@@ -500,7 +500,7 @@ import './Button.css'; // Tell Webpack that Button.js uses these styles
 class Button extends Component {
   render() {
     // You can use them as regular CSS styles
-    return <div className="Button" />;
+    return <div className='Button' />;
   }
 }
 ```
@@ -565,25 +565,25 @@ yarn add node-sass-chokidar
 Then in `package.json`, add the following lines to `scripts`:
 
 ```diff
-   "scripts": {
-+    "build-css": "node-sass-chokidar src/ -o src/",
-+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-     "start": "react-scripts start",
-     "build": "react-scripts build",
-     "test": "react-scripts test --env=jsdom",
+   'scripts': {
++    'build-css': 'node-sass-chokidar src/ -o src/',
++    'watch-css': 'npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive',
+     'start': 'react-scripts start',
+     'build': 'react-scripts build',
+     'test': 'react-scripts test --env=jsdom',
 ```
 
 >Note: To use a different preprocessor, replace `build-css` and `watch-css` commands according to your preprocessor’s documentation.
 
 Now you can rename `src/App.css` to `src/App.scss` and run `npm run watch-css`. The watcher will find every Sass file in `src` subdirectories, and create a corresponding CSS file next to it, in our case overwriting `src/App.css`. Since `src/App.js` still imports `src/App.css`, the styles become a part of your application. You can now edit `src/App.scss`, and `src/App.css` will be regenerated.
 
-To share variables between Sass files, you can use Sass imports. For example, `src/App.scss` and other component style files could include `@import "./shared.scss";` with variable definitions.
+To share variables between Sass files, you can use Sass imports. For example, `src/App.scss` and other component style files could include `@import './shared.scss';` with variable definitions.
 
 To enable importing files without using relative paths, you can add the  `--include-path` option to the command in `package.json`.
 
 ```
-"build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
-"watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+'build-css': 'node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/',
+'watch-css': 'npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive',
 ```
 
 This will allow you to do imports like
@@ -610,16 +610,16 @@ yarn add npm-run-all
 Then we can change `start` and `build` scripts to include the CSS preprocessor commands:
 
 ```diff
-   "scripts": {
-     "build-css": "node-sass-chokidar src/ -o src/",
-     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
--    "start": "react-scripts-ts start",
--    "build": "react-scripts-ts build",
-+    "start-js": "react-scripts-ts start",
-+    "start": "npm-run-all -p watch-css start-js",
-+    "build": "npm run build-css && react-scripts-ts build",
-     "test": "react-scripts test --env=jsdom",
-     "eject": "react-scripts eject"
+   'scripts': {
+     'build-css': 'node-sass-chokidar src/ -o src/',
+     'watch-css': 'npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive',
+-    'start': 'react-scripts-ts start',
+-    'build': 'react-scripts-ts build',
++    'start-js': 'react-scripts-ts start',
++    'start': 'npm-run-all -p watch-css start-js',
++    'build': 'npm run build-css && react-scripts-ts build',
+     'test': 'react-scripts test --env=jsdom',
+     'eject': 'react-scripts eject'
    }
 ```
 
@@ -652,11 +652,11 @@ Before getting started, you must define each type of asset as a valid module for
 To import asset files in TypeScript, create a new type definition file in your project, and name it something like `assets.d.ts`. Then, add a line for each type of asset that you need to import:
 
 ```ts
-declare module "*.gif";
-declare module "*.jpg";
-declare module "*.jpeg";
-declare module "*.png";
-declare module "*.svg";
+declare module '*.gif';
+declare module '*.jpg';
+declare module '*.jpeg';
+declare module '*.png';
+declare module '*.svg';
 ```
 (you'll have to restart the compiler in order the changes to take place)
 
@@ -672,7 +672,7 @@ console.log(logo); // /logo.84287d09.png
 
 function Header() {
   // Import result is the URL of your image
-  return <img src={logo} alt="Logo" />;
+  return <img src={logo} alt='Logo' />;
 }
 
 export default Header;
@@ -723,7 +723,7 @@ If you put a file into the `public` folder, it will **not** be processed by Webp
 Inside `index.html`, you can use it like this:
 
 ```html
-<link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+<link rel='shortcut icon' href='%PUBLIC_URL%/favicon.ico'>
 ```
 
 Only files inside the `public` folder will be accessible by `%PUBLIC_URL%` prefix. If you need to use a file from `src` or `node_modules`, you’ll have to copy it there to explicitly specify your intention to make this file a part of the build.
@@ -826,7 +826,7 @@ Recent versions of [Flow](http://flowtype.org/) work with Create React App proje
 To add Flow to a Create React App project, follow these steps:
 
 1. Run `npm install --save flow-bin` (or `yarn add flow-bin`).
-2. Add `"flow": "flow"` to the `scripts` section of your `package.json`.
+2. Add `'flow': 'flow'` to the `scripts` section of your `package.json`.
 3. Run `npm run flow init` (or `yarn flow init`) to create a [`.flowconfig` file](https://flowtype.org/docs/advanced-configuration.html) in the root directory.
 4. Add `// @flow` to any files you want to type check (for example, to `src/App.js`).
 
@@ -885,7 +885,7 @@ render() {
     <div>
       <small>You are running this application in <b>{process.env.NODE_ENV}</b> mode.</small>
       <form>
-        <input type="hidden" defaultValue={process.env.REACT_APP_SECRET_CODE} />
+        <input type='hidden' defaultValue={process.env.REACT_APP_SECRET_CODE} />
       </form>
     </div>
   );
@@ -900,7 +900,7 @@ When you load the app in the browser and inspect the `<input>`, you will see its
 <div>
   <small>You are running this application in <b>development</b> mode.</small>
   <form>
-    <input type="hidden" value="abcdef" />
+    <input type='hidden' value='abcdef' />
   </form>
 </div>
 ```
@@ -942,7 +942,7 @@ life of the shell session.
 #### Windows (cmd.exe)
 
 ```cmd
-set "REACT_APP_SECRET_CODE=abcdef" && npm start
+set 'REACT_APP_SECRET_CODE=abcdef' && npm start
 ```
 
 (Note: Quotes around the variable assignment are required to avoid a trailing whitespace.)
@@ -950,7 +950,7 @@ set "REACT_APP_SECRET_CODE=abcdef" && npm start
 #### Windows (Powershell)
 
 ```Powershell
-($env:REACT_APP_SECRET_CODE = "abcdef") -and (npm start)
+($env:REACT_APP_SECRET_CODE = 'abcdef') -and (npm start)
 ```
 
 #### Linux, macOS (Bash)
@@ -1074,7 +1074,7 @@ Such setup is **not** required. However, if you **do** have a setup like this, i
 To tell the development server to proxy any unknown requests to your API server in development, add a `proxy` field to your `package.json`, for example:
 
 ```js
-  "proxy": "http://localhost:4000",
+  'proxy': 'http://localhost:4000',
 ```
 
 This way, when you `fetch('/api/todos')` in development, the development server will recognize that it’s not a static asset, and will proxy your request to `http://localhost:4000/api/todos` as a fallback. The development server will only attempt to send requests without a `text/html` accept header to the proxy.
@@ -1094,7 +1094,7 @@ If the `proxy` option is **not** flexible enough for you, alternatively you can:
 * Enable CORS on your server ([here’s how to do it for Express](http://enable-cors.org/server_expressjs.html)).
 * Use [environment variables](#adding-custom-environment-variables) to inject the right server host and port into your app.
 
-### "Invalid Host Header" Errors After Configuring Proxy
+### 'Invalid Host Header' Errors After Configuring Proxy
 
 When you enable the `proxy` option, you opt into a more strict set of host checks. This is necessary because leaving the backend open to remote hosts makes your computer vulnerable to DNS rebinding attacks. The issue is explained in [this article](https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a) and [this issue](https://github.com/webpack/webpack-dev-server/issues/887).
 
@@ -1129,10 +1129,10 @@ You may also specify any configuration value [`http-proxy-middleware`](https://g
 ```js
 {
   // ...
-  "proxy": {
-    "/api": {
-      "target": "<url>",
-      "ws": true
+  'proxy': {
+    '/api': {
+      'target': '<url>',
+      'ws': true
       // ...
     }
   }
@@ -1147,30 +1147,30 @@ You may also narrow down matches using `*` and/or `**`, to match the path exactl
 ```js
 {
   // ...
-  "proxy": {
+  'proxy': {
     // Matches any request starting with /api
-    "/api": {
-      "target": "<url_1>",
-      "ws": true
+    '/api': {
+      'target': '<url_1>',
+      'ws': true
       // ...
     },
     // Matches any request starting with /foo
-    "/foo": {
-      "target": "<url_2>",
-      "ssl": true,
-      "pathRewrite": {
-        "^/foo": "/foo/beta"
+    '/foo': {
+      'target': '<url_2>',
+      'ssl': true,
+      'pathRewrite': {
+        '^/foo': '/foo/beta'
       }
       // ...
     },
     // Matches /bar/abc.html but not /bar/sub/def.html
-    "/bar/*.html": {
-      "target": "<url_3>",
+    '/bar/*.html': {
+      'target': '<url_3>',
       // ...
     },
     // Matches /baz/abc.html and /baz/sub/def.html
-    "/baz/**/*.html": {
-      "target": "<url_4>"
+    '/baz/**/*.html': {
+      'target': '<url_4>'
       // ...
     }
   }
@@ -1193,14 +1193,14 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
 ```js
 {
   // ...
-  "proxy": {
-    "/socket": {
+  'proxy': {
+    '/socket': {
       // Your compatible WebSocket server
-      "target": "ws://<socket_url>",
+      'target': 'ws://<socket_url>',
       // Tell http-proxy-middleware that this is a WebSocket proxy.
       // Also allows you to proxy WebSocket requests without an additional HTTP request
       // https://github.com/chimurai/http-proxy-middleware#external-websocket-upgrade
-      "ws": true
+      'ws': true
       // ...
     }
   }
@@ -1212,7 +1212,7 @@ Either way, you can proxy WebSocket requests manually in `package.json`:
 
 >Note: this feature is available with `react-scripts@0.4.0` and higher.
 
-You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the "proxy" feature](#proxying-api-requests-in-development) to proxy requests to an API server when that API server is itself serving HTTPS.
+You may require the dev server to serve pages over HTTPS. One particular case where this could be useful is when using [the 'proxy' feature](#proxying-api-requests-in-development) to proxy requests to an API server when that API server is itself serving HTTPS.
 
 To do this, set the `HTTPS` environment variable to `true`, then start the dev server as usual with `npm start`:
 
@@ -1244,10 +1244,10 @@ Since Create React App doesn’t support server rendering, you might be wonderin
 
 ```html
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <meta property="og:title" content="__OG_TITLE__">
-    <meta property="og:description" content="__OG_DESCRIPTION__">
+    <meta property='og:title' content='__OG_TITLE__'>
+    <meta property='og:description' content='__OG_DESCRIPTION__'>
 ```
 
 Then, on the server, regardless of the backend you use, you can read `index.html` into memory and replace `__OG_TITLE__`, `__OG_DESCRIPTION__`, and any other placeholders with values depending on the current URL. Just make sure to sanitize and escape the interpolated values so that they are safe to embed into HTML!
@@ -1270,7 +1270,7 @@ Similarly to the previous section, you can leave some placeholders in the HTML t
 
 ```js
 <!doctype html>
-<html lang="en">
+<html lang='en'>
   <head>
     <script>
       window.SERVER_DATA = __SERVER_DATA__;
@@ -1379,7 +1379,7 @@ import * as Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 ```
 
->Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it. [Read here](#initializing-test-environment) to learn how to add this after ejecting.
+>Note: Keep in mind that if you decide to 'eject' before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it. [Read here](#initializing-test-environment) to learn how to add this after ejecting.
 
 Now you can write a smoke test with it:
 
@@ -1470,12 +1470,12 @@ const localStorageMock = {
 global.localStorage = localStorageMock
 ```
 
->Note: Keep in mind that if you decide to "eject" before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it, so you should manually create the property `setupTestFrameworkScriptFile` in the configuration for Jest, something like the following:
+>Note: Keep in mind that if you decide to 'eject' before creating `src/setupTests.js`, the resulting `package.json` file won't contain any reference to it, so you should manually create the property `setupTestFrameworkScriptFile` in the configuration for Jest, something like the following:
 
 >```js
->"jest": {
+>'jest': {
 >   // ...
->   "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js"
+>   'setupTestFrameworkScriptFile': '<rootDir>/src/setupTests.js'
 >  }
 >  ```
 
@@ -1508,25 +1508,25 @@ Example package.json:
 
 ```json
 {
-  "name": "your-package",
-  "jest": {
-    "collectCoverageFrom" : [
-      "src/**/*.{js,jsx}",
-      "!<rootDir>/node_modules/",
-      "!<rootDir>/path/to/dir/"
+  'name': 'your-package',
+  'jest': {
+    'collectCoverageFrom' : [
+      'src/**/*.{js,jsx}',
+      '!<rootDir>/node_modules/',
+      '!<rootDir>/path/to/dir/'
     ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 90,
-        "functions": 90,
-        "lines": 90,
-        "statements": 90
+    'coverageThreshold': {
+      'global': {
+        'branches': 90,
+        'functions': 90,
+        'lines': 90,
+        'statements': 90
       }
     },
-    "coverageReporters": ["text"],
-    "snapshotSerializers": ["my-serializer-module"],
-    "moduleNameMapper": {
-      "^~/(.*)$": "<rootDir>/src/$1"
+    'coverageReporters': ['text'],
+    'snapshotSerializers': ['my-serializer-module'],
+    'moduleNameMapper': {
+      '^~/(.*)$': '<rootDir>/src/$1'
     }
   }
 }
@@ -1609,20 +1609,20 @@ The build command will check for linter warnings and fail if any are found.
 By default, the `package.json` of the generated project looks like this:
 
 ```js
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
+  'scripts': {
+    'start': 'react-scripts start',
+    'build': 'react-scripts build',
+    'test': 'react-scripts test --env=jsdom'
 ```
 
 If you know that none of your tests depend on [jsdom](https://github.com/tmpvar/jsdom), you can safely remove `--env=jsdom`, and your tests will run faster:
 
 ```diff
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
--   "test": "react-scripts test --env=jsdom"
-+   "test": "react-scripts test"
+  'scripts': {
+    'start': 'react-scripts start',
+    'build': 'react-scripts build',
+-   'test': 'react-scripts test --env=jsdom'
++   'test': 'react-scripts test'
 ```
 
 To help you make up your mind, here is a list of APIs that **need jsdom**:
@@ -1659,8 +1659,8 @@ There are various ways to setup a debugger for your Jest tests. We cover debuggi
 
 Add the following to the `scripts` section in your project's `package.json`
 ```json
-"scripts": {
-    "test:debug": "react-scripts --inspect-brk test --runInBand --env=jsdom"
+'scripts': {
+    'test:debug': 'react-scripts --inspect-brk test --runInBand --env=jsdom'
   }
 ```
 Place `debugger;` statements in any test and run:
@@ -1675,7 +1675,7 @@ Open the following in Chrome
 about:inspect
 ```
 
-After opening that link, the Chrome Developer Tools will be displayed. Select `inspect` on your process and a breakpoint will be set at the first line of the react script (this is done simply to give you time to open the developer tools and to prevent Jest from executing before you have time to do so). Click the button that looks like a "play" button in the upper right hand side of the screen to continue execution. When Jest executes the test that contains the debugger statement, execution will pause and you can examine the current scope and call stack.
+After opening that link, the Chrome Developer Tools will be displayed. Select `inspect` on your process and a breakpoint will be set at the first line of the react script (this is done simply to give you time to open the developer tools and to prevent Jest from executing before you have time to do so). Click the button that looks like a 'play' button in the upper right hand side of the screen to continue execution. When Jest executes the test that contains the debugger statement, execution will pause and you can examine the current scope and call stack.
 
 >Note: the --runInBand cli option makes sure Jest runs test in the same process rather than spawning processes for individual tests. Normally Jest parallelizes test runs across processes but it is hard to debug many processes at the same time.
 
@@ -1686,23 +1686,23 @@ Debugging Jest tests is supported out of the box for [Visual Studio Code](https:
 Use the following [`launch.json`](https://code.visualstudio.com/docs/editor/debugging#_launch-configurations) configuration file:
 ```
 {
-  "version": "0.2.0",
-  "configurations": [
+  'version': '0.2.0',
+  'configurations': [
     {
-      "name": "Debug CRA Tests",
-      "type": "node",
-      "request": "launch",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/react-scripts",      
-      "args": [
-        "test",
-        "--runInBand",
-        "--no-cache",
-        "--env=jsdom"
+      'name': 'Debug CRA Tests',
+      'type': 'node',
+      'request': 'launch',
+      'runtimeExecutable': '${workspaceRoot}/node_modules/.bin/react-scripts',      
+      'args': [
+        'test',
+        '--runInBand',
+        '--no-cache',
+        '--env=jsdom'
       ],
-      "cwd": "${workspaceRoot}",
-      "protocol": "inspector",
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      'cwd': '${workspaceRoot}',
+      'protocol': 'inspector',
+      'console': 'integratedTerminal',
+      'internalConsoleOptions': 'neverOpen'
     }
   ]
 }
@@ -1769,10 +1769,10 @@ yarn add react-styleguidist
 Then, add these scripts to your `package.json`:
 
 ```diff
-   "scripts": {
-+    "styleguide": "styleguidist server",
-+    "styleguide:build": "styleguidist build",
-     "start": "react-scripts start",
+   'scripts': {
++    'styleguide': 'styleguidist server',
++    'styleguide:build': 'styleguidist build',
+     'start': 'react-scripts start',
 ```
 
 Then, run the following command inside your app’s directory:
@@ -1863,10 +1863,10 @@ network.
 
 1. Users aren't always familiar with offline-first web apps. It can be useful to
 [let the user know](https://developers.google.com/web/fundamentals/instant-and-offline/offline-ux#inform_the_user_when_the_app_is_ready_for_offline_consumption)
-when the service worker has finished populating your caches (showing a "This web
-app works offline!" message) and also let them know when the service worker has
+when the service worker has finished populating your caches (showing a 'This web
+app works offline!' message) and also let them know when the service worker has
 fetched the latest updates that will be available the next time they load the
-page (showing a "New content is available; please refresh." message). Showing
+page (showing a 'New content is available; please refresh.' message). Showing
 this messages is currently left as an exercise to the developer, but as a
 starting point, you can make use of the logic included in [`src/registerServiceWorker.js`](src/registerServiceWorker.js), which
 demonstrates which service worker lifecycle events to listen for to detect each
@@ -1916,11 +1916,11 @@ yarn add source-map-explorer
 Then in `package.json`, add the following line to `scripts`:
 
 ```diff
-   "scripts": {
-+    "analyze": "source-map-explorer build/static/js/main.*",
-     "start": "react-scripts start",
-     "build": "react-scripts build",
-     "test": "react-scripts test --env=jsdom",
+   'scripts': {
++    'analyze': 'source-map-explorer build/static/js/main.*',
+     'start': 'react-scripts start',
+     'build': 'react-scripts build',
+     'test': 'react-scripts test --env=jsdom',
 ```
 
 Then to analyze the bundle run the production build then run the analyze
@@ -2023,7 +2023,7 @@ By default, Create React App produces a build assuming your app is hosted at the
 To override this, specify the `homepage` in your `package.json`, for example:
 
 ```js
-  "homepage": "http://mywebsite.com/relativepath",
+  'homepage': 'http://mywebsite.com/relativepath',
 ```
 
 This will let Create React App correctly infer the root path to use in the generated HTML file.
@@ -2033,8 +2033,8 @@ More information [here](https://reacttraining.com/react-router/web/api/BrowserRo
 <br>
 For example:
 ```js
-<BrowserRouter basename="/calendar"/>
-<Link to="/today"/> // renders <a href="/calendar/today">
+<BrowserRouter basename='/calendar'/>
+<Link to='/today'/> // renders <a href='/calendar/today'>
 ```
 
 #### Serving the Same Build from Different Paths
@@ -2044,7 +2044,7 @@ For example:
 If you are not using the HTML5 `pushState` history API or not using client-side routing at all, it is unnecessary to specify the URL from which your app will be served. Instead, you can put this in your `package.json`:
 
 ```js
-  "homepage": ".",
+  'homepage': '.',
 ```
 
 This will make sure that all the asset paths are relative to `index.html`. You will then be able to move your app from `http://mywebsite.com` to `http://mywebsite.com/relativepath` or even `http://mywebsite.com/relative/path` without having to rebuild it.
@@ -2097,14 +2097,14 @@ Then run the `firebase init` command from your project’s root. You need to cho
     ✔  Firebase initialization complete!
 ```
 
-IMPORTANT: you need to set proper HTTP caching headers for `service-worker.js` file in `firebase.json` file or you will not be able to see changes after first deployment ([issue #2440](https://github.com/facebookincubator/create-react-app/issues/2440)). It should be added inside `"hosting"` key like next:
+IMPORTANT: you need to set proper HTTP caching headers for `service-worker.js` file in `firebase.json` file or you will not be able to see changes after first deployment ([issue #2440](https://github.com/facebookincubator/create-react-app/issues/2440)). It should be added inside `'hosting'` key like next:
 
 ```
 {
-  "hosting": {
+  'hosting': {
     ...
-    "headers": [
-      {"source": "/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}]}
+    'headers': [
+      {'source': '/service-worker.js', 'headers': [{'key': 'Cache-Control', 'value': 'no-cache'}]}
     ]
     ...
 ```
@@ -2141,13 +2141,13 @@ For more information see [Add Firebase to your JavaScript Project](https://fireb
 Open your `package.json` and add a `homepage` field for your project:
 
 ```json
-  "homepage": "https://myusername.github.io/my-app",
+  'homepage': 'https://myusername.github.io/my-app',
 ```
 
 or for a GitHub user page:
 
 ```json
-  "homepage": "https://myusername.github.io",
+  'homepage': 'https://myusername.github.io',
 ```
 
 Create React App uses the `homepage` field to determine the root URL in the built HTML file.
@@ -2171,11 +2171,11 @@ yarn add gh-pages
 Add the following scripts in your `package.json`:
 
 ```diff
-  "scripts": {
-+   "predeploy": "npm run build",
-+   "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+  'scripts': {
++   'predeploy': 'npm run build',
++   'deploy': 'gh-pages -d build',
+    'start': 'react-scripts start',
+    'build': 'react-scripts build',
 ```
 
 The `predeploy` script will run automatically before `deploy` is run.
@@ -2186,10 +2186,10 @@ additional modifications:
 1. First, change your repository's source branch to be any branch other than **master**.
 1. Additionally, tweak your `package.json` scripts to push deployments to **master**:
 ```diff
-  "scripts": {
-    "predeploy": "npm run build",
--   "deploy": "gh-pages -d build",
-+   "deploy": "gh-pages -b master -d build",
+  'scripts': {
+    'predeploy': 'npm run build',
+-   'deploy': 'gh-pages -d build',
++   'deploy': 'gh-pages -b master -d build',
 ```
 
 #### Step 3: Deploy the site by running `npm run deploy`
@@ -2204,7 +2204,7 @@ npm run deploy
 
 Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
 
-<img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
+<img src='http://i.imgur.com/HUjEr9l.png' width='500' alt='gh-pages branch setting'>
 
 #### Step 5: Optionally, configure the domain
 
@@ -2219,7 +2219,7 @@ GitHub Pages doesn’t support routers that use the HTML5 `pushState` history AP
 
 #### Troubleshooting
 
-##### "/dev/tty: No such a device or address"
+##### '/dev/tty: No such a device or address'
 
 If, when deploying, you get `/dev/tty: No such a device or address` or a similar error, try the follwing:
 
@@ -2236,7 +2236,7 @@ You can find instructions in [Deploying React with Zero Configuration](https://b
 
 Sometimes `npm run build` works locally but fails during deploy via Heroku. Following are the most common cases.
 
-##### "Module not found: Error: Cannot resolve 'file' or 'directory'"
+##### 'Module not found: Error: Cannot resolve 'file' or 'directory''
 
 If you get something like this:
 
@@ -2250,7 +2250,7 @@ It means you need to ensure that the lettercase of the file or directory you `im
 
 This is important because Linux (the operating system used by Heroku) is case sensitive. So `MyDirectory` and `mydirectory` are two distinct directories and thus, even though the project builds locally, the difference in case breaks the `import` statements on Heroku remotes.
 
-##### "Could not find a required file."
+##### 'Could not find a required file.'
 
 If you exclude or ignore necessary files from the package you will see a error similar this one:
 
@@ -2260,7 +2260,7 @@ remote:   Name: `index.html`
 remote:   Searched in: /tmp/build_a2875fc163b209225122d68916f1d4df/public
 remote:
 remote: npm ERR! Linux 3.13.0-105-generic
-remote: npm ERR! argv "/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/node" "/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/npm" "run" "build"
+remote: npm ERR! argv '/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/node' '/tmp/build_a2875fc163b209225122d68916f1d4df/.heroku/node/bin/npm' 'run' 'build'
 ```
 
 In this case, ensure that the file is there with the proper lettercase and that’s not ignored on your local `.gitignore` or `~/.gitignore_global`.

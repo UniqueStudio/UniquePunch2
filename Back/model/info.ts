@@ -23,11 +23,6 @@ export const infoProcess = async function(req: Request, res: Response) {
 export const infoUploadAPIProcess = async function(req: Request, res: Response) {
     //upload using API require check secret key
     try {
-        const { isAdmin } = verifyJWT(req.header("Authorization"));
-        if (!isAdmin) {
-            res.json({ code: -1, msg: "您不是管理员，无权操作！" });
-            return;
-        }
         const { timestamp, secret } = req.params;
         const nowTimeStamp = new Date().getTime();
         if (Math.abs(nowTimeStamp - +timestamp) > 60 * 60 * 1000) {
@@ -50,11 +45,7 @@ export const infoUploadAPIProcess = async function(req: Request, res: Response) 
 
 export const infoList = async function(req: Request, res: Response) {
     try {
-        const { isAdmin } = verifyJWT(req.header("Authorization"));
-        if (!isAdmin) {
-            res.json({ code: -1, msg: "您不是管理员，无权操作！" });
-            return;
-        }
+        verifyJWT(req.header("Authorization"));
         const { db, client } = await databaseConnect();
         let { page } = req.params;
 
@@ -110,11 +101,7 @@ export const infoDelete = async function(req: Request, res: Response) {
 
 export const infoDetail = async function(req: Request, res: Response) {
     try {
-        const { isAdmin } = verifyJWT(req.header("Authorization"));
-        if (!isAdmin) {
-            res.json({ code: -1, msg: "您不是管理员，无权操作！" });
-            return;
-        }
+        verifyJWT(req.header("Authorization"));
         const { db, client } = await databaseConnect();
         const { id } = req.params;
         const detail = await db.collection("sign").findOne({ _id: id });

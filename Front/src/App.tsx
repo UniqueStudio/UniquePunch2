@@ -1,20 +1,26 @@
-import * as React from 'react';
-import './App.css';
+import * as React from "react";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import { createStore } from "redux";
+import { reducers } from "./store/store";
+import "./App.css";
 
-import logo from './logo.svg';
+import { Info } from "./info/info";
+import { User } from "./user/user";
+
+export const store = createStore(reducers);
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/">
+            <Redirect to="/user/login/pwd" />
+          </Route>
+          <Route path="/user" components={User} />
+          <Route path="/info" components={Info} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }

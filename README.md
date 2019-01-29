@@ -12,6 +12,11 @@
 -   提供一套网络 API，供后期自动推送打卡信息
 -   每年年底可以用数据，生成一份“年终总结”
 
+## 技术栈
+
+-   后端：typescript、express、mongodb
+-   前端：react、material UI
+
 ## 致谢
 
 部分 XLSX 代码魔改自 faraway 学长的 unique punch 1.0
