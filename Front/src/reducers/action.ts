@@ -1,28 +1,32 @@
-export const LOGIN = 'LOGIN';
+export const LOGIN = "LOGIN";
 export type LOGIN = typeof LOGIN;
 export interface Login {
     type: LOGIN;
     token: string;
+    isAdmin: boolean;
     avatar: string;
     username: string;
-    isAdmin: boolean;
+    loginStatus: true;
 }
-export const login = function(token: string, avatar: string, username: string, isAdmin: boolean) {
+export const login = function(token: string, isAdmin: boolean, avatar: string, username: string): Login {
     return {
-        type: 'LOGIN',
+        type: LOGIN,
         token,
         avatar,
         username,
-        isAdmin
+        isAdmin,
+        loginStatus: true
     };
 };
-export const LOGOUT = 'LOGOUT';
+export const LOGOUT = "LOGOUT";
 export type LOGOUT = typeof LOGOUT;
 export interface Logout {
     type: LOGOUT;
+    loginStatus: false;
 }
-export const logout = function() {
+export const logout = function(): Logout {
     return {
-        type: 'LOGOUT'
+        type: LOGOUT,
+        loginStatus: false
     };
 };

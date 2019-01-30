@@ -28,4 +28,5 @@ export const userReducer = function(state = initState, action: Action): UserStor
             localStorage.removeItem("token");
             return { ...state, token: "", avatar: "", username: "", isAdmin: false };
     }
+    return state;
 };
