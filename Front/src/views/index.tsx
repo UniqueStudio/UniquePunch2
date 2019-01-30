@@ -1,9 +1,12 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
+import { withRouter } from "react-router";
 
 import UserContainer from "../containers/user";
 import InfoContainer from "../containers/info";
 import Bar from "../containers/bar";
+
+import withRoot from "../styles/withRoot";
 
 class Index extends React.Component {
   render() {
@@ -19,4 +22,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default withRouter(withRoot(Index));

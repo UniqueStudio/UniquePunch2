@@ -1,7 +1,7 @@
 import * as React from "react";
 import { RouteComponentProps } from "react-router";
 
-import { withStyles, WithStyles, createStyles } from "@material-ui/core/styles";
+import { withStyles, WithStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -10,15 +10,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
-const styles = createStyles({
-  root: {
-    flexGrow: 1,
-    userSelect: "none"
-  },
-  grow: {
-    flexGrow: 1
-  }
-});
+import styles from "../styles/Bar";
 
 interface Props extends WithStyles {
   loginStatus: boolean;
@@ -46,7 +38,7 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
         <AppBar position="static">
           <Toolbar>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Unique Sign 2.0
+              Unique Punch 2.0
             </Typography>
             {loginStatus && (
               <div>
