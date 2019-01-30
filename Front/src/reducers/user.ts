@@ -23,10 +23,10 @@ export const userReducer = function(state = initState, action: Action): UserStor
         case actions.LOGIN:
             const { token, avatar, username, isAdmin } = action;
             localStorage.setItem("token", token);
-            return { ...state, token, avatar, username, isAdmin };
+            return { ...state, token, avatar, username, isAdmin, loginStatus: true };
         case actions.LOGOUT:
             localStorage.removeItem("token");
-            return { ...state, token: "", avatar: "", username: "", isAdmin: false };
+            return { ...state, token: "", avatar: "", username: "", isAdmin: false, loginStatus: false };
     }
     return state;
 };

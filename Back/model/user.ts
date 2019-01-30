@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
 import * as fs from "fs";
+import { signJWT } from "./check";
 
 export const userLogin = async function(req: Request, res: Response) {
     try {
@@ -20,8 +21,19 @@ export const userLogin = async function(req: Request, res: Response) {
 
         const result = await resultRaw.json();
         if (result.code === 1) {
-            //success logic , sign JWT ...
-            res.json({ code: 1, msg: result.msg.token });
+            // success login logic
+            const { uid, isAdmin, avatar, username } = result.msg;
+            const localToken = signJWT(uid, isAdmin, username);
+            res.json({
+                code: 1,
+                msg: {
+                    uid,
+                    isAdmin,
+                    avatar,
+                    username,
+                    token: localToken
+                }
+            });
         } else {
             res.json({ code: -1, msg: result.msg });
         }
@@ -39,6 +51,29 @@ export const userAvatar = async function(req: Request, res: Response) {
         } else {
             res.json({ code: -1, msg: "该用户头像不存在！" });
         }
+    } catch (e) {
+        res.json({ code: -1, msg: e.message });
+    }
+};
+
+export const userLoginQrCode = async function(_req: Request, res: Response) {
+    try {
+        const url = `${process.env.SERVER}user/login/qrcode`;
+        const responseRaw = await fetch(url);
+        const responseJSON = await responseRaw.json();
+        res.json(responseJSON);
+    } catch (e) {
+        res.json({ code: -1, msg: e.message });
+    }
+};
+
+export const userLoginScan = async function(req: Request, res: Response) {
+    try {
+        const { key } = req.params;
+        const url = `${process.env.SERVER}user/login/scan/${key}/status`;
+        const responseRaw = await fetch(url);
+        const responseJSON = await responseRaw.json();
+        res.json(responseJSON);
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }

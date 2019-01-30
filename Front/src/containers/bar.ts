@@ -4,7 +4,7 @@ import { Dispatch } from "redux";
 import { RouteComponentProps, withRouter } from "react-router";
 
 import { StoreState } from "../reducers/reducers";
-
+import { logout } from "../reducers/action";
 import Bar from "../components/AppBar";
 
 const mapStateToProps = (
@@ -18,7 +18,9 @@ const mapStateToProps = (
     ...ownProps
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    logout: () => dispatch(logout())
+});
 
 export default withRouter(
     connect(

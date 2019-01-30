@@ -6,9 +6,8 @@ import { StoreState } from "../reducers/reducers";
 
 import UserLoginWxView from "../views/userLoginWx";
 
-const mapStateToProps = ({ user: { loginStatus, avatar, username } }: StoreState) => ({
+const mapStateToProps = ({ user: { loginStatus, username } }: StoreState) => ({
     loginStatus,
-    avatar,
     username
 });
 type DispatchLoginWx = Dispatch<Login>;

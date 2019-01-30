@@ -4,7 +4,7 @@ import express from "express";
 import * as bodyParser from "body-parser";
 import multer from "multer";
 import { infoProcess, infoList, infoDelete, infoDetail, infoUploadAPIProcess } from "./model/info";
-import { userLogin, userAvatar } from "./model/user";
+import { userLogin, userAvatar, userLoginQrCode, userLoginScan } from "./model/user";
 import { runtimeExec } from "./model/runtime";
 import { fileDestination, fileFilter, fileName } from "./model/upload";
 
@@ -51,6 +51,8 @@ app.post("/info/process", upload.single("data"), infoProcess);
 //User
 app.post("/user/login", userLogin);
 app.get("/user/avatar/:userid", userAvatar);
+app.get("/user/qrcode", userLoginQrCode);
+app.get("/user/scan/:key", userLoginScan);
 
 //Upload API
 app.post("/user/upload/:timestamp/:secret", upload.single("data"), infoUploadAPIProcess);
