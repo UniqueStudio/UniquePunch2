@@ -56,6 +56,9 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
         showNotification: true,
         msgNotification: `尊敬的${username}，登陆成功，欢迎回来！`
       });
+      this.props.history.push({
+        pathname: "/info"
+      });
     } else {
       this.setState({
         showNotification: true,

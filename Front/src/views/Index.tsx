@@ -4,7 +4,6 @@ import { withRouter } from "react-router";
 
 import UserContainer from "../containers/User";
 import InfoContainer from "../containers/Info";
-import DetailContainer from "../containers/Detail";
 import Bar from "../containers/Bar";
 
 import withRoot from "../styles/WithRoot";
@@ -17,7 +16,6 @@ class Index extends React.Component {
         <Switch>
           <Route path="/user" component={UserContainer} />
           <Route path="/info" component={InfoContainer} />
-          <Route path="/detail/:id" component={DetailContainer} />
         </Switch>
       </div>
     );

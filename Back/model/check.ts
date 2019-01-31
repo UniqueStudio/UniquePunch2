@@ -7,6 +7,7 @@ export interface JWTContent {
     uid: string;
     isAdmin: boolean;
     username: string;
+    avatar: string;
 }
 
 export const addSaltMd5 = function(firstMD5: string, timestamp: string) {
@@ -24,12 +25,13 @@ export const md5Calculate = function(path: string) {
         .digest("hex");
 };
 
-export const signJWT = function(uid: string, isAdmin: boolean, username: string) {
+export const signJWT = function(uid: string, isAdmin: boolean, username: string, avatar: string) {
     return jwt.sign(
         {
             uid: uid,
             isAdmin: isAdmin,
-            username: username
+            username: username,
+            avatar: avatar
         },
         secret,
         {

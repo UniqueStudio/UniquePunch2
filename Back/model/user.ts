@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
 import * as fs from "fs";
-import { signJWT } from "./check";
+import { signJWT, verifyJWT } from "./check";
 
 export const userLogin = async function(req: Request, res: Response) {
     try {
@@ -23,7 +23,7 @@ export const userLogin = async function(req: Request, res: Response) {
         if (result.code === 1) {
             // success login logic
             const { uid, isAdmin, avatar, username } = result.msg;
-            const localToken = signJWT(uid, isAdmin, username);
+            const localToken = signJWT(uid, isAdmin, username, avatar);
             res.json({
                 code: 1,
                 msg: {
@@ -62,6 +62,23 @@ export const userLoginQrCode = async function(_req: Request, res: Response) {
         const responseRaw = await fetch(url);
         const responseJSON = await responseRaw.json();
         res.json(responseJSON);
+    } catch (e) {
+        res.json({ code: -1, msg: e.message });
+    }
+};
+
+export const userInfo = async function(req: Request, res: Response) {
+    try {
+        const { uid, isAdmin, username, avatar } = verifyJWT(req.header("Authorization"));
+        res.json({
+            code: 1,
+            msg: {
+                uid,
+                isAdmin,
+                username,
+                avatar
+            }
+        });
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }

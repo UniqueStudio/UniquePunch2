@@ -12,13 +12,17 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
 import styles from "../styles/Bar";
+import { Logout, Login } from "src/reducers/action";
+import RabbitAjax from "../model/ajax";
+import { userInfo } from "../model/consts";
 
 interface Props extends WithStyles {
   loginStatus: boolean;
   isAdmin: boolean;
   username: string;
   avatar: string;
-  logout: () => void;
+  logout: () => Logout;
+  login: (token: string, isAdmin: boolean, avatar: string, username: string) => Login;
 }
 
 class Bar extends React.PureComponent<RouteComponentProps & Props> {
@@ -96,6 +100,18 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
         </AppBar>
       </div>
     );
+  }
+  async componentDidMount() {
+    const token = localStorage.getItem("token");
+    if (!this.props.loginStatus && token) {
+      const responseRaw = await RabbitAjax.post(userInfo);
+      if (responseRaw.data.code === 1) {
+        const { isAdmin, username, avatar } = responseRaw.data.msg;
+        this.props.login(token, isAdmin, avatar, username);
+      } else {
+        localStorage.removeItem("token");
+      }
+    }
   }
 }
 

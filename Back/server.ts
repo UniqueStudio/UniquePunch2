@@ -3,8 +3,8 @@ require("dotenv").config();
 import express from "express";
 import * as bodyParser from "body-parser";
 import multer from "multer";
-import { infoProcess, infoList, infoDelete, infoDetail, infoUploadAPIProcess } from "./model/info";
-import { userLogin, userAvatar, userLoginQrCode, userLoginScan } from "./model/user";
+import { infoProcess, infoList, infoDelete, infoDetail, infoUploadAPIProcess, infoRecord } from "./model/info";
+import { userLogin, userAvatar, userLoginQrCode, userLoginScan, userInfo } from "./model/user";
 import { runtimeExec } from "./model/runtime";
 import { fileDestination, fileFilter, fileName } from "./model/upload";
 
@@ -44,12 +44,14 @@ app.use((_req, res, next) => {
 
 // Sign Info
 app.get("/info/list/:page", infoList);
+app.get("/info/record/:page", infoRecord);
 app.get("/info/detail/:id", infoDetail);
 app.post("/info/delete/:id", infoDelete);
 app.post("/info/process", upload.single("data"), infoProcess);
 
 //User
 app.post("/user/login", userLogin);
+app.post("/user/info", userInfo);
 app.get("/user/avatar/:userid", userAvatar);
 app.get("/user/qrcode", userLoginQrCode);
 app.get("/user/scan/:key", userLoginScan);
