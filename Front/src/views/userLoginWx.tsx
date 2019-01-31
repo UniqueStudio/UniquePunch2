@@ -24,16 +24,16 @@ class UserLoginWxView extends React.PureComponent<Props & RouteComponentProps> {
   state = {
     showNotification: false,
     msgNotification: "",
-    onShow: false,
     doing: false,
     key: "",
     qrcodeSrc: ""
   };
+  onShow = false;
   handlePwdLogin = () => {
     this.props.history.push({ pathname: "/user/login/pwd" });
   };
   handleNotificationClose = () => {
-    if (this.state.onShow && !this.state.doing) {
+    if (this.onShow && !this.state.doing) {
       this.handleGetQrCode();
     }
     this.setState({
@@ -65,7 +65,7 @@ class UserLoginWxView extends React.PureComponent<Props & RouteComponentProps> {
   handleGetResult = async () => {
     const key = this.state.key;
     const responseRaw = await RabbitAjax.get(loginQrCodeScan(key));
-    if (this.state.onShow && key === this.state.key) {
+    if (this.onShow && key === this.state.key) {
       if (responseRaw.data.code === 1) {
         const { isAdmin, avatar, username, token } = responseRaw.data.msg;
         console.log(this);
@@ -83,15 +83,11 @@ class UserLoginWxView extends React.PureComponent<Props & RouteComponentProps> {
     }
   };
   componentDidMount() {
-    this.setState({
-      onShow: true
-    });
+    this.onShow = true;
     this.handleGetQrCode();
   }
   componentWillUnmount() {
-    this.setState({
-      onShow: false
-    });
+    this.onShow = false;
   }
   render() {
     const { classes } = this.props;

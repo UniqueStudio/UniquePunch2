@@ -1,29 +1,32 @@
 {
-    "name": "unique_punch_backend",
-    "version": "1.0.0",
-    "main": "index.js",
-    "license": "MIT",
-    "dependencies": {
-        "body-parser": "^1.18.3",
-        "dotenv": "^6.2.0",
-        "express": "^4.16.4",
-        "jsonwebtoken": "^8.4.0",
-        "mongodb": "^3.1.13",
-        "multer": "^1.4.1",
-        "node-fetch": "^2.3.0",
-        "typescript": "^3.2.4",
-        "xlsx": "^0.14.1"
-    },
-    "devDependencies": {
-        "@types/dotenv": "^6.1.0",
-        "@types/express": "^4.16.1",
-        "@types/jsonwebtoken": "^8.3.0",
-        "@types/mongodb": "^3.1.19",
-        "@types/multer": "^1.3.7",
-        "@types/node": "^10.12.18",
-        "@types/node-fetch": "^2.1.4"
-    },
-    "scripts": {
-        "dev": "ts-node server.ts"
-    }
+  "name": "unique_punch_backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.13",
+    "multer": "^1.4.1",
+    "node-fetch": "^2.3.0",
+    "typescript": "^3.2.4",
+    "xlsx": "^0.14.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.0",
+    "@types/express": "^4.16.1",
+    "@types/jsonwebtoken": "^8.3.0",
+    "@types/mongodb": "^3.1.19",
+    "@types/multer": "^1.3.7",
+    "@types/node": "^10.12.18",
+    "@types/node-fetch": "^2.1.4"
+  },
+  "scripts": {
+    "dev": "ts-node server.ts",
+    "compile": "tsc",
+    "start": "node ./output/server.js",
+    "init": "node ./output/utils/getUserList.js"
+  }
 }
