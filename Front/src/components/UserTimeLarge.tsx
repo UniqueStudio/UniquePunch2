@@ -6,6 +6,8 @@ import AccessTime from "@material-ui/icons/AccessTime";
 import style from "../styles/UserTime";
 
 import goldCrownImg from "./static/goldCrown.png";
+import silverCrownImg from "./static/silverCrown.png";
+import copperCrownImg from "./static/copperCrown.png";
 
 interface Props extends WithStyles {
   rank: string;
@@ -17,13 +19,39 @@ interface Props extends WithStyles {
 
 class UserTimeLarge extends React.PureComponent<Props> {
   render() {
-    const { classes } = this.props;
+    const { classes, rank } = this.props;
+
+    let index = 0;
+    if (rank === "1") {
+      index = 0;
+    } else if (rank === "2") {
+      index = 1;
+    } else if (rank === "3") {
+      index = 2;
+    }
+
+    const styleList = [
+      {
+        backgroundColor: "#ff8800"
+      },
+      {
+        backgroundColor: "#b0b0b0"
+      },
+      {
+        backgroundColor: "#ff9f3c"
+      }
+    ];
+    const imgList = [goldCrownImg, silverCrownImg, copperCrownImg];
+
+    const renderImg = imgList[index];
+    const renderBgStyle = styleList[index];
+
     return (
-      <div className={classes.containerLarge}>
+      <div className={classes.containerLarge} style={rank === "1" ? { transform: "scale(1.2,1.2)" } : {}}>
         <div className={classes.boxGridLarge}>
           <div className={classes.avatarLargeContainer}>
-            <div className={classes.avatarLargeBackground}>
-              <img src={goldCrownImg} alt="crown" className={classes.avatarCrown} />
+            <div className={classes.avatarLargeBackground} style={renderBgStyle}>
+              <img src={renderImg} alt="crown" className={classes.avatarCrown} />
               <img src={this.props.avatar} alt="avatar" className={classes.avatarLarge} />
             </div>
           </div>

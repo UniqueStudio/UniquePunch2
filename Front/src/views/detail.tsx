@@ -6,6 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import UserTimeSmall from "../components/UserTimeSmall";
 import UserTimeMiddle from "../components/UserTimeMiddle";
 import UserTimeLarge from "../components/UserTimeLarge";
+import DetailSubtitle from "../components/detailSubTitle";
+import uniqueBg from "./static/uniqueBg.png";
 
 import style from "../styles/detail";
 
@@ -22,6 +24,7 @@ class DetailView extends React.PureComponent<RouteComponentProps & Props> {
     return (
       <div className={classes.detail}>
         <div className={classes.headlineContainer}>
+          <img src={uniqueBg} alt="unique bg" className={classes.uniquebg} />
           <Typography gutterBottom className={classes.headline} style={{ color: "#555555" }}>
             Unique
           </Typography>
@@ -33,21 +36,104 @@ class DetailView extends React.PureComponent<RouteComponentProps & Props> {
           </Typography>
           <div className={classes.time}>20181201~20181215</div>
         </div>
-        <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
-        <UserTimeMiddle
-          rank="1"
-          name="洪志远"
-          group="Design"
-          time="188.8"
-          avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
-        />
-        <UserTimeLarge
-          rank="1"
-          name="洪志远"
-          group="Design"
-          time="188.8"
-          avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
-        />
+        <div className={classes.special}>
+          <div className={classes.best}>
+            <div className={classes.bestTop}>
+              <DetailSubtitle title="TOP N" backgroundColor="#9df2aa" />
+              <UserTimeLarge
+                rank="2"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+              <UserTimeLarge
+                rank="1"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+              <UserTimeLarge
+                rank="3"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+            </div>
+            <div className={classes.bestOther}>
+              <UserTimeMiddle
+                rank="1"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+              <UserTimeMiddle
+                rank="1"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+              <UserTimeMiddle
+                rank="1"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+              <UserTimeMiddle
+                rank="1"
+                name="洪志远"
+                group="Design"
+                time="188.8"
+                avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+              />
+            </div>
+          </div>
+          <div className={classes.worst}>
+            <DetailSubtitle title="NULL" backgroundColor="#f29db4" />
+            <UserTimeMiddle
+              rank="-1"
+              name="洪志远"
+              group="Design"
+              time="188.8"
+              avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+            />
+            <UserTimeMiddle
+              rank="-1"
+              name="洪志远"
+              group="Design"
+              time="188.8"
+              avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+            />
+            <UserTimeMiddle
+              rank="-1"
+              name="洪志远"
+              group="Design"
+              time="188.8"
+              avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+            />
+            <UserTimeMiddle
+              rank="-1"
+              name="洪志远"
+              group="Design"
+              time="188.8"
+              avatar="https://p.qpic.cn/wwhead/duc2TvpEgSTPk74IwG7Bs95s34PVsmgbG36Ol5EBfgvh4dDWNeKfRLW8tWnSiaUVbkpsLB2oJe9U/0"
+            />
+          </div>
+        </div>
+        <div className={classes.list}>
+          <DetailSubtitle title="MORE" backgroundColor="#9dcdf2" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />
+        </div>
       </div>
     );
   }
