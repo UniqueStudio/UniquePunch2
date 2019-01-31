@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import InfoView from "../views/info";
+import DetailView from "../views/Detail";
 import { StoreState } from "src/reducers/reducers";
 
 const mapStateToProps = ({ user: { loginStatus, isAdmin, avatar, username } }: StoreState) => ({
@@ -11,9 +11,9 @@ const mapStateToProps = ({ user: { loginStatus, isAdmin, avatar, username } }: S
     username
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({});
+const mapDispatchToProps = (disPatch: Dispatch) => ({});
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(InfoView);
+)(DetailView);

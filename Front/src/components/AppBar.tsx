@@ -8,6 +8,8 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Avatar from "@material-ui/core/Avatar";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
 
 import styles from "../styles/Bar";
 
@@ -16,19 +18,42 @@ interface Props extends WithStyles {
   isAdmin: boolean;
   username: string;
   avatar: string;
+  logout: () => void;
 }
 
 class Bar extends React.PureComponent<RouteComponentProps & Props> {
   state = {
-    anchorEl: null
+    showMenu: null
   };
-
+  handleOnClick = (event: React.MouseEvent<HTMLElement>) => {
+    const { loginStatus } = this.props;
+    if (loginStatus) {
+      this.setState({
+        showMenu: event.target
+      });
+    } else {
+      this.props.history.push({
+        pathname: "/user/login/pwd"
+      });
+    }
+  };
+  handleInfo = () => {
+    this.props.history.push({
+      pathname: "/info"
+    });
+  };
+  handleLogout = () => {
+    this.props.logout();
+  };
   handleClose = () => {
-    this.setState({ anchorEl: false });
+    this.setState({
+      showMenu: null
+    });
   };
-
   render() {
     const { classes, loginStatus } = this.props;
+    const { showMenu } = this.state;
+    const open = Boolean(showMenu);
 
     return (
       <div className={classes.root}>
@@ -39,13 +64,30 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
             </Typography>
             {loginStatus ? (
               <div>
-                <IconButton color="inherit" aria-label="User">
+                <IconButton color="inherit" aria-label="User" onClick={this.handleOnClick}>
                   <Avatar alt="Avatar" src={this.props.avatar} />
                 </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={this.state.showMenu}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleInfo}>打卡列表</MenuItem>
+                  <MenuItem onClick={this.handleLogout}>登录注销</MenuItem>
+                </Menu>
               </div>
             ) : (
               <div>
-                <IconButton color="inherit" aria-label="User">
+                <IconButton color="inherit" aria-label="User" onClick={this.handleOnClick}>
                   <AccountCircle />
                 </IconButton>
               </div>

@@ -4,17 +4,15 @@ import { Dispatch } from "redux";
 import { login, Login } from "../reducers/action";
 import { StoreState } from "../reducers/reducers";
 
-import UserLoginPwdView from "../views/userLoginPwd";
+import UserLoginWxView from "../views/UserLoginWx";
 
-const mapStateToProps = ({ user: { loginStatus, avatar, username } }: StoreState) => ({
+const mapStateToProps = ({ user: { loginStatus, username } }: StoreState) => ({
     loginStatus,
-    avatar,
     username
 });
+type DispatchLoginWx = Dispatch<Login>;
 
-type DispatchLoginPwd = Dispatch<Login>;
-
-const mapDispatchToProps = (dispatch: DispatchLoginPwd) => ({
+const mapDispatchToProps = (dispatch: DispatchLoginWx) => ({
     login: (token: string, isAdmin: boolean, avatar: string, username: string) =>
         dispatch(login(token, isAdmin, avatar, username))
 });
@@ -22,4 +20,4 @@ const mapDispatchToProps = (dispatch: DispatchLoginPwd) => ({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(UserLoginPwdView);
+)(UserLoginWxView);

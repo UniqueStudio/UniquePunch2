@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import UserTimeSmall from "../components/UserTimeSmall";
 import UserTimeMiddle from "../components/UserTimeMiddle";
 import UserTimeLarge from "../components/UserTimeLarge";
-import DetailSubtitle from "../components/detailSubTitle";
+import DetailSubtitle from "../components/DetailSubTitle";
 import uniqueBg from "./static/uniqueBg.png";
 
 import style from "../styles/detail";

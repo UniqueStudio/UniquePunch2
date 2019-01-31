@@ -3,7 +3,7 @@ import { Dispatch } from "redux";
 
 import { StoreState } from "../reducers/reducers";
 
-import UserView from "../views/user";
+import UserView from "../views/User";
 
 const mapStateToProps = ({ user: { loginStatus } }: StoreState) => ({
     loginStatus

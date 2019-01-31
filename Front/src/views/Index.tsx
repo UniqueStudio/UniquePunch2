@@ -2,10 +2,10 @@ import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 
-import UserContainer from "../containers/user";
-import InfoContainer from "../containers/info";
-import DetailContainer from "../containers/detail";
-import Bar from "../containers/bar";
+import UserContainer from "../containers/User";
+import InfoContainer from "../containers/Info";
+import DetailContainer from "../containers/Detail";
+import Bar from "../containers/Bar";
 
 import withRoot from "../styles/withRoot";
 
