@@ -11,7 +11,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import { RouteComponentProps } from "react-router";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 
-import style from "../styles/loginPwd";
+import style from "../styles/LoginPwd";
 import { Login } from "../reducers/action";
 
 import RabbitAjax from "../model/ajax";

@@ -9,7 +9,7 @@ import UserTimeLarge from "../components/UserTimeLarge";
 import DetailSubtitle from "../components/DetailSubTitle";
 import uniqueBg from "./static/uniqueBg.png";
 
-import style from "../styles/detail";
+import style from "../styles/Detail";
 
 interface Props extends WithStyles {
   loginStatus: boolean;

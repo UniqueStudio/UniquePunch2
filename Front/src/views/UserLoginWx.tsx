@@ -1,5 +1,5 @@
 import * as React from "react";
-import style from "../styles/loginPwd";
+import style from "../styles/LoginPwd";
 import { Login } from "../reducers/action";
 import RabbitAjax from "../model/ajax";
 

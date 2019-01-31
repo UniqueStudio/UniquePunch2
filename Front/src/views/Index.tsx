@@ -7,7 +7,7 @@ import InfoContainer from "../containers/Info";
 import DetailContainer from "../containers/Detail";
 import Bar from "../containers/Bar";
 
-import withRoot from "../styles/withRoot";
+import withRoot from "../styles/WithRoot";
 
 class Index extends React.Component {
   render() {

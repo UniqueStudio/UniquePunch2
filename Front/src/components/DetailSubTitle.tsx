@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { withStyles, WithStyles } from "@material-ui/core";
-import style from "../styles/subtitle";
+import style from "../styles/Subtitle";
 
 interface Props extends WithStyles {
   title: string;
