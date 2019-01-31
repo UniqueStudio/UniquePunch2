@@ -1,9 +1,15 @@
-import * as crypto from "crypto";
-import * as fs from "fs";
+import { MongoClient } from "mongodb";
 
-const file = fs.readFileSync("./utils/test.xls");
-const hash = crypto
-    .createHash("md5")
-    .update(file)
-    .digest("hex");
-console.log(hash);
+(async function() {
+    const client = await MongoClient.connect(
+        "mongodb://localhost:27017/unique",
+        {
+            useNewUrlParser: true
+        }
+    );
+    const db = client.db("unique");
+    const result = await db.collection("files").insertOne({
+        MD5: "tql"
+    });
+    console.log(result);
+})();

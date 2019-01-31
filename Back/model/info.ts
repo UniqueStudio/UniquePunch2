@@ -13,6 +13,7 @@ export const infoProcess = async function(req: Request, res: Response) {
             return;
         }
         const fileItem = req.file;
+
         processPunch(fileItem.destination + fileItem.filename);
         res.json({ code: 1 });
     } catch (e) {
@@ -105,7 +106,7 @@ export const infoDetail = async function(req: Request, res: Response) {
         const { db, client } = await databaseConnect();
         const { id } = req.params;
         const detail = await db.collection("sign").findOne({ _id: id });
-        const groupRank = await db
+        const groupRankRaw = await db
             .collection("sign")
             .aggregate([
                 {
@@ -114,16 +115,19 @@ export const infoDetail = async function(req: Request, res: Response) {
                 {
                     $group: {
                         id: "$group",
-                        count: { $sum: 1 }
-                    }
-                },
-                {
-                    $sort: {
-                        count: -1
+                        time: { $sum: "$time" },
+                        number: { $sum: 1 }
                     }
                 }
             ])
             .toArray();
+
+        const groupRank = groupRankRaw
+            .map(item => ({
+                ...item,
+                perTime: item.time / item.number
+            }))
+            .sort(($1, $2) => $2.perTime - $1.perTime);
 
         client.close();
         res.json({ code: 1, msg: { detail, group: groupRank } });

@@ -1,6 +1,7 @@
 import XLSX from "xlsx";
 import * as fs from "fs";
 import { databaseConnect } from "./db";
+import { md5Calculate } from "./check";
 
 export interface punchDataInfo {
     _id: any;
@@ -33,19 +34,34 @@ export const processPunch = async function(path: string) {
         return;
     }
     const data = fs.readFileSync(path, { encoding: "binary" });
+
+    const fileMd5 = md5Calculate(data);
+    const uploadRecordSearch = await db.collection("upload").findOne({ MD5: fileMd5 });
+    if (uploadRecordSearch) {
+        console.log("File already uploaded.");
+        return;
+    }
+
+    const processResult = await db.collection("upload").insertOne({
+        MD5: fileMd5,
+        createDate: new Date(),
+        status: "reading"
+    });
+
     const punchDatas = handlePunchData(XLSX.read(data, { type: "binary" }));
     const dateRange = XLSX.read(data, { type: "binary" }).Props!.Comments!;
 
     punchDatas.sort(($1, $2) => $2.time - $1.time);
 
+    const exceptUserJoinPeriod = process.env.EXCEPT || "20162";
+
     const punchDatasFullRaw = await Promise.all(
         punchDatas.map(async item => {
             const db_info = await db.collection("user").findOne({ name: name });
-            if (db_info) {
+            if (db_info && db_info.join > exceptUserJoinPeriod) {
                 return {
                     ...item,
                     _id: db_info._id,
-                    name: db_info.name,
                     group: db_info.group
                 };
             } else {
@@ -60,6 +76,18 @@ export const processPunch = async function(path: string) {
         data: punchDatasFull,
         createDate: new Date()
     });
+
+    await db.collection("upload").updateOne(
+        {
+            _id: processResult.insertedId
+        },
+        {
+            $set: {
+                status: "OK"
+            }
+        }
+    );
+
     try {
         fs.unlinkSync(path);
     } catch {}

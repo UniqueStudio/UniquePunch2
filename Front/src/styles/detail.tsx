@@ -90,6 +90,11 @@ const styles = createStyles({
   bestOther: {
     width: "100%",
     textAlign: "center"
+  },
+  group: {
+    padding: "0 18px 36px 18px",
+    backgroundColor: "#efe3fd",
+    textAlign: "center"
   }
 });
 

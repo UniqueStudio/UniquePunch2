@@ -79,12 +79,13 @@ export const runtimeUserList = async function() {
             .find({ group: `${group.name}` })
             .toArray();
 
-        const allGroupMemberActive: { [userid: string]: boolean } = allGroupMemberList.reduce((p, { userid }) => {
-            return {
+        const allGroupMemberActive: { [userid: string]: boolean } = allGroupMemberList.reduce(
+            (p, { userid }) => ({
                 ...p,
                 [userid]: false
-            };
-        }, {});
+            }),
+            {}
+        );
 
         const dataURL = getUserListURL(accessToken, group.id);
         const userListResponse = await fetch(dataURL);

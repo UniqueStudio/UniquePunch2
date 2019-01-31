@@ -125,6 +125,15 @@ class DetailView extends React.PureComponent<RouteComponentProps & Props> {
             />
           </div>
         </div>
+        <div className={classes.group}>
+          <DetailSubtitle title="GROUP" backgroundColor="#d9b6ff" />
+          <UserTimeSmall rank="1" name="" group="Design" time="188.8" />
+          <UserTimeSmall rank="1" name="" group="Web" time="188.8" />
+          <UserTimeSmall rank="1" name="" group="PM" time="188.8" />
+          <UserTimeSmall rank="1" name="" group="Lab" time="188.8" />
+          <UserTimeSmall rank="1" name="" group="AI" time="188.8" />
+          <UserTimeSmall rank="1" name="" group="Android" time="188.8" />
+        </div>
         <div className={classes.list}>
           <DetailSubtitle title="MORE" backgroundColor="#9dcdf2" />
           <UserTimeSmall rank="1" name="洪志远" group="Design" time="188.8" />

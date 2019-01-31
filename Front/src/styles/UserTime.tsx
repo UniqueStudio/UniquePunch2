@@ -88,7 +88,8 @@ const styles = (theme: Theme) =>
       backgroundColor: "#f9fcff",
       display: "inline-block",
       userSelect: "none",
-      margin: "12px 12px"
+      margin: "12px 12px",
+      textAlign: "left"
     },
     boxGrid: {
       width: "100%",
@@ -118,7 +119,7 @@ const styles = (theme: Theme) =>
       color: "white",
       borderRadius: "12px",
       textAlign: "center",
-      margin: "auto",
+      margin: "auto auto auto 0",
       padding: "2px 6px"
     },
     timeIcon: {
