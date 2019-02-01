@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
-import UserLoginWx from "../containers/UserLoginWx";
-import UserLoginPwd from "../containers/UserLoginPwd";
 import { RouteComponentProps } from "react-router";
+
+const UserLoginWx = React.lazy(() => import("../containers/UserLoginWx"));
+const UserLoginPwd = React.lazy(() => import("../containers/UserLoginPwd"));
 
 interface Props {
   loginStatus: boolean;
@@ -22,7 +23,7 @@ class UserView extends React.PureComponent<Props & RouteComponentProps> {
   componentDidMount() {
     if (this.props.loginStatus) {
       this.props.history.push({
-        pathname: "/info"
+        pathname: "/info/list/1"
       });
     }
   }

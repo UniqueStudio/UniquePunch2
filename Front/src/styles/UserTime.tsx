@@ -4,7 +4,7 @@ import { Theme } from "@material-ui/core/styles/createMuiTheme";
 
 const styles = (theme: Theme) =>
   createStyles({
-    "@media screen and (min-width:800px)": {
+    "@media screen and (min-width:1200px)": {
       container: {
         width: "350px"
       },
@@ -43,7 +43,7 @@ const styles = (theme: Theme) =>
         display: "inline-block"
       }
     },
-    "@media screen and (max-width:800px)": {
+    "@media screen and (max-width:1200px)": {
       container: {
         width: "300px"
       },

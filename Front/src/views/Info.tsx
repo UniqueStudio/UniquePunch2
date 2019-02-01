@@ -2,15 +2,23 @@ import * as React from "react";
 import { withStyles, WithStyles } from "@material-ui/core/styles";
 import { Route, Switch } from "react-router-dom";
 
-import DetailContainer from "../containers/Detail";
-import InfoListContainer from "../containers/InfoList";
-import InfoUploadRecordContainer from "../containers/InfoUploadRecord";
+const DetailContainer = React.lazy(() => import("../containers/Detail"));
+const InfoListContainer = React.lazy(() => import("../containers/InfoList"));
+const InfoUploadRecordContainer = React.lazy(() => import("../containers/InfoUploadRecord"));
+
 import style from "../styles/Info";
+import { UserInfoType, checkLoginStatus } from "../model/checkLoginStatus";
 
 import { RouteComponentProps } from "react-router";
+import { Login } from "src/reducers/action";
 
-class InfoView extends React.PureComponent<WithStyles & RouteComponentProps> {
-  public render() {
+interface Props extends RouteComponentProps {
+  loginStatus: boolean;
+  login: (token: string, isAdmin: boolean, avatar: string, username: string) => Login;
+}
+
+class InfoView extends React.PureComponent<WithStyles & Props> {
+  render() {
     const { classes } = this.props;
     return (
       <div className={classes.infoRoot}>
@@ -21,6 +29,20 @@ class InfoView extends React.PureComponent<WithStyles & RouteComponentProps> {
         </Switch>
       </div>
     );
+  }
+  async componentDidMount() {
+    if (!this.props.loginStatus) {
+      const { status, data } = await checkLoginStatus();
+      if (status) {
+        const token = localStorage.getItem("token") || "";
+        const { isAdmin, avatar, username } = data as UserInfoType;
+        this.props.login(token, isAdmin, avatar, username);
+      } else {
+        this.props.history.push({
+          pathname: "/user/login/pwd"
+        });
+      }
+    }
   }
 }
 

@@ -75,7 +75,7 @@ class UserLoginWxView extends React.PureComponent<Props & RouteComponentProps> {
           msgNotification: `尊敬的${username}，登陆成功，欢迎回来！`
         });
         this.props.history.push({
-          pathname: "/info"
+          pathname: "/info/list/1"
         });
       } else {
         this.setState({

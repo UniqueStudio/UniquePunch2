@@ -41,15 +41,34 @@ const styles = createStyles({
       marginTop: "48px"
     }
   },
+  "@media screen and (min-width: 1400px)": {
+    userContainer: {
+      maxWidth: "550px"
+    },
+    userContainerLg: {
+      maxWidth: "1125px"
+    }
+  },
+  "@media screen and (max-width: 1400px)": {
+    userContainer: {
+      maxWidth: "280px"
+    },
+    userContainerLg: {
+      maxWidth: "760px"
+    }
+  },
+  "@media screen and (max-width: 880px)": {
+    userContainerLg: {
+      maxWidth: "325px !important"
+    }
+  },
   userContainer: {
     display: "inline-flex",
-    flexFlow: "row wrap",
-    maxWidth: "550px"
+    flexFlow: "row wrap"
   },
   userContainerLg: {
     display: "inline-flex",
-    flexFlow: "row wrap",
-    maxWidth: "1125px"
+    flexFlow: "row wrap"
   },
   uniquebg: {
     position: "absolute",
@@ -71,7 +90,7 @@ const styles = createStyles({
   },
   time: {
     color: "#919191",
-    fontSize: "14px",
+    fontSize: "16px",
     margin: "12px auto",
     userSelect: "none"
   },

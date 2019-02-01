@@ -26,6 +26,7 @@ interface Props extends WithStyles {
 }
 
 class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> {
+  mounted = false;
   state = {
     nickname: "",
     password: "",
@@ -49,7 +50,7 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
       },
       false
     );
-    if (responseRaw.data.code === 1) {
+    if (responseRaw.data.code === 1 && this.mounted) {
       const { isAdmin, avatar, username, token } = responseRaw.data.msg;
       this.props.login(token, isAdmin, avatar, username);
       this.setState({
@@ -57,7 +58,7 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
         msgNotification: `尊敬的${username}，登陆成功，欢迎回来！`
       });
       this.props.history.push({
-        pathname: "/info"
+        pathname: "/info/list/1"
       });
     } else {
       this.setState({
@@ -140,6 +141,12 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
         </CardContent>
       </Card>
     );
+  }
+  componentDidMount() {
+    this.mounted = true;
+  }
+  componentWillUnmount() {
+    this.mounted = false;
   }
 }
 

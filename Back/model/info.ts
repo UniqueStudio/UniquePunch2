@@ -104,13 +104,9 @@ export const infoList = async function(req: Request, res: Response) {
 
 export const infoRecord = async function(req: Request, res: Response) {
     try {
-        const { isAdmin } = verifyJWT(req.header("Authorization"));
+        verifyJWT(req.header("Authorization"));
         let { page } = req.params;
         page = +page;
-        if (!isAdmin) {
-            res.json({ code: -1, msg: "您不是管理员，无权操作！" });
-            return;
-        }
         const { db, client } = await databaseConnect();
 
         const result = await db

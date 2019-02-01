@@ -1,9 +1,10 @@
 import * as React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 
-import UserContainer from "../containers/User";
-import InfoContainer from "../containers/Info";
+const UserContainer = React.lazy(() => import("../containers/User"));
+const InfoContainer = React.lazy(() => import("../containers/Info"));
+
 import Bar from "../containers/Bar";
 import Footer from "../components/Footer";
 
@@ -16,6 +17,7 @@ class Index extends React.Component {
         <Bar />
         <div style={{ minHeight: "1000px" }}>
           <Switch>
+            <Redirect from="/" to="/info/list/1" exact />
             <Route path="/user" component={UserContainer} />
             <Route path="/info" component={InfoContainer} />
           </Switch>
