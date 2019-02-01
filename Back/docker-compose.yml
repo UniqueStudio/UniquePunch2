@@ -13,10 +13,17 @@ services:
         build: .
         environment:
             - NODE_ENV=production
-            - MONGO_DATABASE=mongodb://mongodb/unique
+            - SERVER=https://api.bbs.hzytql.top/
+            - APPID=
+            - WXSECRET=
+            - SECRET=
+            - EXCEPT=20162
         ports:
             - 7012:7012
         links:
             - mongodb
         depends_on:
             - mongodb
+        restart: always
+        command:
+            - initialize

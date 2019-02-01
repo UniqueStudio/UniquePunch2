@@ -18,14 +18,17 @@ interface Props extends RouteComponentProps {
 }
 
 class InfoView extends React.PureComponent<WithStyles & Props> {
+  routeRender = (Component: React.LazyExoticComponent<React.ComponentType>) => (props: RouteComponentProps) => (
+    <Component />
+  );
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.infoRoot}>
         <Switch>
-          <Route path="/info/list/:page" component={InfoListContainer} />
-          <Route path="/info/record/:page" component={InfoUploadRecordContainer} />
-          <Route path="/info/detail/:id" component={DetailContainer} />
+          <Route path="/info/list/:page" render={this.routeRender(InfoListContainer)} />
+          <Route path="/info/record/:page" render={this.routeRender(InfoUploadRecordContainer)} />
+          <Route path="/info/detail/:id" render={this.routeRender(DetailContainer)} />
         </Switch>
       </div>
     );

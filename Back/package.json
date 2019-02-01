@@ -27,6 +27,6 @@
     "dev": "ts-node server.ts",
     "compile": "tsc",
     "start": "node ./output/server.js",
-    "init": "node ./output/utils/getUserList.js"
+    "initialize": "node ./output/utils/getUserList.js"
   }
 }

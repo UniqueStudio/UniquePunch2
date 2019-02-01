@@ -10,12 +10,15 @@ interface Props {
 }
 
 class UserView extends React.PureComponent<Props & RouteComponentProps> {
+  routeRender = (Component: React.LazyExoticComponent<React.ComponentType>) => (props: RouteComponentProps) => (
+    <Component />
+  );
   public render() {
     return (
       <div className="user">
         <Switch>
-          <Route path="/user/login/pwd" component={UserLoginPwd} />
-          <Route path="/user/login/wx" component={UserLoginWx} />
+          <Route path="/user/login/pwd" render={this.routeRender(UserLoginPwd)} />
+          <Route path="/user/login/wx" render={this.routeRender(UserLoginWx)} />
         </Switch>
       </div>
     );

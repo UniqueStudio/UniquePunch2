@@ -2,3 +2,4 @@
 .env
 */avatar/*
 /Back/output/*
+Back/docker-compose.yml
