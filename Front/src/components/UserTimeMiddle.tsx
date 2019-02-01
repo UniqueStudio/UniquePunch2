@@ -14,8 +14,8 @@ interface Props extends WithStyles {
 }
 class UserTimeMiddle extends React.PureComponent<Props> {
   render() {
-    const { classes } = this.props;
-    const renderBgStyle = this.props.rank === "-1" ? { backgroundColor: "#fceaef" } : { backgroundColor: "#eafcec" };
+    const { classes, rank } = this.props;
+    const renderBgStyle = rank === "-1" ? { backgroundColor: "#fceaef" } : { backgroundColor: "#eafcec" };
     return (
       <div className={classes.containerMiddle} style={renderBgStyle}>
         <div className={classes.boxGridMiddle}>
@@ -28,7 +28,12 @@ class UserTimeMiddle extends React.PureComponent<Props> {
               {this.props.name}
             </div>
             <div className={classes.infoFooter}>
-              <div className={classnames(classes.rankMiddle, classes.item)}>{this.props.rank}</div>
+              <div
+                className={classnames(classes.rankMiddle, classes.item)}
+                style={rank === "-1" ? { backgroundColor: "orangered" } : {}}
+              >
+                {this.props.rank}
+              </div>
               <div className={classnames(classes.time, classes.item)}>
                 <AccessTime className={classes.timeIcon} />
                 {this.props.time}

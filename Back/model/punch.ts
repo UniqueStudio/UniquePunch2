@@ -90,6 +90,8 @@ export const processPunch = async function(path: string) {
 
     try {
         fs.unlinkSync(path);
-    } catch {}
+    } catch (e) {
+        console.log(e.message);
+    }
     client.close();
 };

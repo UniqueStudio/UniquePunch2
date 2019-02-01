@@ -182,7 +182,7 @@ class DetailView extends React.PureComponent<RouteComponentProps<ParamProps> & P
       </div>
     );
   }
-  async componentDidUpdate() {
+  async componentDidMount() {
     const { nowId } = this.state;
     const { id } = this.props.match.params;
     if (nowId === id) return;

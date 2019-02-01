@@ -7,6 +7,12 @@ const styles = createStyles({
   },
   grow: {
     flexGrow: 1
+  },
+  none: {
+    display: "none"
+  },
+  uploadBtn: {
+    cursor: "pointer"
   }
 });
 

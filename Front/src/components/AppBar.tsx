@@ -14,7 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import styles from "../styles/Bar";
 import { Logout, Login } from "src/reducers/action";
 import RabbitAjax from "../model/ajax";
-import { userInfo } from "../model/consts";
+import { userInfo, uploadFile } from "../model/consts";
 
 interface Props extends WithStyles {
   loginStatus: boolean;
@@ -27,7 +27,30 @@ interface Props extends WithStyles {
 
 class Bar extends React.PureComponent<RouteComponentProps & Props> {
   state = {
-    showMenu: null
+    showMenu: null,
+    uploading: false
+  };
+  handleFile = async (event: React.ChangeEvent) => {
+    if (this.state.uploading) {
+      alert("当前有文件正在上传，请稍后再上传新文件！");
+      return;
+    }
+    this.setState({
+      uploading: true
+    });
+    const [file] = event.target["files"];
+    const formData = new FormData();
+    formData.append("data", file);
+    const responseRaw = await RabbitAjax.post(uploadFile, formData);
+    this.setState({
+      uploading: false
+    });
+    if (responseRaw.data.code === 1) {
+      this.componentDidMount();
+      alert("文件上传成功！");
+    } else {
+      alert(responseRaw.data.msg);
+    }
   };
   handleOnClick = (event: React.MouseEvent<HTMLElement>) => {
     const { loginStatus } = this.props;
@@ -45,17 +68,30 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
     this.props.history.push({
       pathname: "/info/list/1"
     });
+    this.handleClose();
   };
   handleLogout = () => {
     this.props.logout();
+    this.props.history.push({
+      pathname: "/user/login/pwd"
+    });
+    this.handleClose();
   };
   handleClose = () => {
     this.setState({
       showMenu: null
     });
   };
+  handleRecord = () => {
+    this.props.history.push({
+      pathname: "/info/record/1"
+    });
+    this.setState({
+      showMenu: null
+    });
+  };
   render() {
-    const { classes, loginStatus } = this.props;
+    const { classes, loginStatus, isAdmin } = this.props;
     const { showMenu } = this.state;
     const open = Boolean(showMenu);
 
@@ -71,6 +107,7 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
                 <IconButton color="inherit" aria-label="User" onClick={this.handleOnClick}>
                   <Avatar alt="Avatar" src={this.props.avatar} />
                 </IconButton>
+                <input type="file" onChange={this.handleFile} id="fileUpload" className={classes.none} />
                 <Menu
                   id="menu-appbar"
                   anchorEl={this.state.showMenu}
@@ -85,8 +122,24 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleInfo}>打卡列表</MenuItem>
-                  <MenuItem onClick={this.handleLogout}>登录注销</MenuItem>
+                  {loginStatus && [
+                    <MenuItem onClick={this.handleInfo} key="1">
+                      打卡列表
+                    </MenuItem>,
+                    <MenuItem onClick={this.handleRecord} key="2">
+                      文件记录
+                    </MenuItem>
+                  ]}
+
+                  {loginStatus && isAdmin && (
+                    <MenuItem>
+                      <label htmlFor="fileUpload" className={classes.uploadBtn}>
+                        上传文件
+                      </label>
+                    </MenuItem>
+                  )}
+
+                  <MenuItem onClick={this.handleLogout}>注销登录</MenuItem>
                 </Menu>
               </div>
             ) : (

@@ -8,3 +8,5 @@ export const userAvatar = (id: string) => `${domainURL}user/avatar/${id}`;
 export const infoList = (page: string) => `${domainURL}info/list/${page}`;
 export const recordList = (page: string) => `${domainURL}info/record/${page}`;
 export const detailInfo = (id: string) => `${domainURL}info/detail/${id}`;
+export const deleteInfo = (id: string) => `${domainURL}info/delete/${id}`;
+export const uploadFile = `${domainURL}info/process`;

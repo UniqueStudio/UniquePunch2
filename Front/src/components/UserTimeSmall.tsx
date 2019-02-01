@@ -13,12 +13,18 @@ interface Props extends WithStyles {
 }
 class UserTimeSmall extends React.PureComponent<Props> {
   render() {
-    const { classes } = this.props;
+    const { classes, time } = this.props;
+
     return (
       <div className={classes.container}>
         <div className={classes.boxGrid}>
           <div />
-          <div className={classnames(classes.rank, classes.item)}>{this.props.rank}</div>
+          <div
+            className={classnames(classes.rank, classes.item)}
+            style={+time < 30 ? { backgroundColor: "orangered" } : {}}
+          >
+            {this.props.rank}
+          </div>
           <div className={classnames(classes.group, classes.item)}>{this.props.group}</div>
           <div className={classnames(classes.name, classes.item)}>{this.props.name}</div>
           <div className={classnames(classes.time, classes.item)}>

@@ -93,8 +93,10 @@ export const infoList = async function(req: Request, res: Response) {
             ])
             .toArray();
 
+        const total = await db.collection("sign").countDocuments();
+
         client.close();
-        res.json({ code: 1, msg: result });
+        res.json({ code: 1, msg: { collection: result, total: total } });
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }
@@ -111,22 +113,27 @@ export const infoRecord = async function(req: Request, res: Response) {
         }
         const { db, client } = await databaseConnect();
 
-        const result = await db.collection("upload").aggregate([
-            {
-                $sort: {
-                    createDate: -1
+        const result = await db
+            .collection("upload")
+            .aggregate([
+                {
+                    $sort: {
+                        createDate: -1
+                    }
+                },
+                {
+                    $skip: PAGESIZE * (page - 1)
+                },
+                {
+                    $limit: PAGESIZE
                 }
-            },
-            {
-                $skip: PAGESIZE * (page - 1)
-            },
-            {
-                $limit: PAGESIZE
-            }
-        ]);
+            ])
+            .toArray();
+
+        const total = await db.collection("upload").countDocuments();
 
         client.close();
-        res.json({ code: 1, msg: result });
+        res.json({ code: 1, msg: { collection: result, total: total } });
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }
