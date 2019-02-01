@@ -35,7 +35,7 @@ export const processPunch = async function(path: string) {
     }
     const data = fs.readFileSync(path, { encoding: "binary" });
 
-    const fileMd5 = md5Calculate(data);
+    const fileMd5 = md5Calculate(path);
     const uploadRecordSearch = await db.collection("upload").findOne({ MD5: fileMd5 });
     if (uploadRecordSearch) {
         console.log("File already uploaded.");
@@ -57,7 +57,7 @@ export const processPunch = async function(path: string) {
 
     const punchDatasFullRaw = await Promise.all(
         punchDatas.map(async item => {
-            const db_info = await db.collection("user").findOne({ name: name });
+            const db_info = await db.collection("user").findOne({ name: item.name });
             if (db_info && db_info.join > exceptUserJoinPeriod) {
                 return {
                     ...item,

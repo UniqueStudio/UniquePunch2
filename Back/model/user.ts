@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import fetch from "node-fetch";
 import * as fs from "fs";
 import { signJWT, verifyJWT } from "./check";
+import { databaseConnect } from "./db";
+import { ObjectID } from "bson";
 
 export const userLogin = async function(req: Request, res: Response) {
     try {
@@ -43,13 +45,22 @@ export const userLogin = async function(req: Request, res: Response) {
 };
 
 export const userAvatar = async function(req: Request, res: Response) {
-    const { userid } = req.params;
+    const { id } = req.params;
     try {
+        const { client, db } = await databaseConnect();
+        const userInfo = await db.collection("user").findOne({ _id: new ObjectID(id) });
+        if (!userInfo) {
+            res.json({ code: -1, msg: "该用户不存在！" });
+            return;
+        }
+        const { userid } = userInfo;
         const fileExistence = fs.existsSync(`./avatar/${userid}.avatar`);
+
+        client.close();
         if (fileExistence) {
             res.download(`./avatar/${userid}.avatar`);
         } else {
-            res.json({ code: -1, msg: "该用户头像不存在！" });
+            res.download(`./utils/defaultAvatar.png`);
         }
     } catch (e) {
         res.json({ code: -1, msg: e.message });

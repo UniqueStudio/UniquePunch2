@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import blue from "@material-ui/core/colors/blue";
-import grey from "@material-ui/core/colors/grey";
+import pink from "@material-ui/core/colors/pink";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
@@ -9,7 +9,7 @@ import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 const theme = createMuiTheme({
   palette: {
     primary: blue,
-    secondary: grey
+    secondary: pink
   },
   typography: {
     useNextVariants: true

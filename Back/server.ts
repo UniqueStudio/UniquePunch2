@@ -52,12 +52,12 @@ app.post("/info/process", upload.single("data"), infoProcess);
 //User
 app.post("/user/login", userLogin);
 app.post("/user/info", userInfo);
-app.get("/user/avatar/:userid", userAvatar);
+app.get("/user/avatar/:id", userAvatar);
 app.get("/user/qrcode", userLoginQrCode);
 app.get("/user/scan/:key", userLoginScan);
 
 //Upload API
-app.post("/user/upload/:timestamp/:secret", upload.single("data"), infoUploadAPIProcess);
+app.post("/upload/:timestamp/:secret", upload.single("data"), infoUploadAPIProcess);
 
 //Runtime API
 app.get("/runtime", runtimeExec);

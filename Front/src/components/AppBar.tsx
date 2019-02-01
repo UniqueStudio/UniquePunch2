@@ -43,7 +43,7 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
   };
   handleInfo = () => {
     this.props.history.push({
-      pathname: "/info"
+      pathname: "/info/list/1"
     });
   };
   handleLogout = () => {

@@ -34,13 +34,13 @@ export const fileFilter = function(
 
 export const fileName = function(
     req: Express.Request,
-    file: Express.Multer.File,
+    _file: Express.Multer.File,
     cb: (error: Error | null, filename: string) => void
 ) {
     try {
         const { uid } = verifyJWT((req as any)["header"]("Authorization"));
-        cb(null, `${uid}_${file.originalname}_${new Date().getTime()}.punish`);
+        cb(null, `${uid}_${new Date().getTime()}.punish`);
     } catch {
-        cb(null, `ERR_${file.originalname}_${new Date().getTime()}.punish`);
+        cb(null, `ERR_${new Date().getTime()}.punish`);
     }
 };

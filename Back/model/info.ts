@@ -3,6 +3,23 @@ import { verifyJWT, md5Calculate, addSaltMd5 } from "./check";
 import { PAGESIZE } from "./consts";
 import { databaseConnect } from "./db";
 import { processPunch } from "./punch";
+import { ObjectID } from "mongodb";
+
+interface userPunchItem {
+    name: string;
+    time: number;
+    _id: ObjectID;
+    group: Array<string>;
+}
+
+interface groupTimeStatic {
+    [groupName: string]: GroupTimeItem;
+}
+
+interface GroupTimeItem {
+    time: number;
+    count: number;
+}
 
 export const infoProcess = async function(req: Request, res: Response) {
     //Direct upload using Web
@@ -124,7 +141,7 @@ export const infoDelete = async function(req: Request, res: Response) {
         }
         const { id } = req.params;
         const { db, client } = await databaseConnect();
-        db.collection("sign").deleteOne({ _id: id });
+        db.collection("sign").deleteOne({ _id: new ObjectID(id) });
         client.close();
         res.json({ code: 1 });
     } catch (e) {
@@ -137,32 +154,38 @@ export const infoDetail = async function(req: Request, res: Response) {
         verifyJWT(req.header("Authorization"));
         const { db, client } = await databaseConnect();
         const { id } = req.params;
-        const detail = await db.collection("sign").findOne({ _id: id });
-        const groupRankRaw = await db
-            .collection("sign")
-            .aggregate([
-                {
-                    $unwind: "$group"
-                },
-                {
-                    $group: {
-                        id: "$group",
-                        time: { $sum: "$time" },
-                        number: { $sum: 1 }
-                    }
-                }
-            ])
-            .toArray();
+        const detail = await db.collection("sign").findOne({ _id: new ObjectID(id) });
 
-        const groupRank = groupRankRaw
-            .map(item => ({
-                ...item,
-                perTime: item.time / item.number
+        const groupRankRaw = (detail.data as Array<userPunchItem>).reduce(
+            (p, val) => {
+                val.group.forEach(groupName => {
+                    if (p[groupName]) {
+                        p[groupName].time += val.time;
+                        p[groupName].count++;
+                    } else {
+                        p = {
+                            ...p,
+                            [groupName]: {
+                                count: 1,
+                                time: val.time
+                            }
+                        };
+                    }
+                });
+                return p;
+            },
+            {} as groupTimeStatic
+        );
+
+        const groupRank = Object.entries(groupRankRaw)
+            .map(([groupName, val]) => ({
+                name: groupName,
+                avgTime: val.time / val.count
             }))
-            .sort(($1, $2) => $2.perTime - $1.perTime);
+            .sort(($1, $2) => $2.avgTime - $1.avgTime);
 
         client.close();
-        res.json({ code: 1, msg: { detail, group: groupRank } });
+        res.json({ code: 1, msg: { ...detail, group: groupRank } });
     } catch (e) {
         res.json({ code: -1, msg: e.message });
     }

@@ -1,16 +1,19 @@
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 
-import InfoView from "../views/Info";
-import { StoreState } from "src/reducers/reducers";
+import InfoListView from "../views/InfoList";
+import { StoreState } from "../reducers/reducers";
 
 const mapStateToProps = ({ user: { loginStatus, isAdmin, avatar, username } }: StoreState) => ({
-    loginStatus
+  loginStatus,
+  isAdmin,
+  avatar,
+  username
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({});
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(InfoView);
+  mapStateToProps,
+  mapDispatchToProps
+)(InfoListView);

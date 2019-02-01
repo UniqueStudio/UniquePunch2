@@ -41,6 +41,16 @@ const styles = createStyles({
       marginTop: "48px"
     }
   },
+  userContainer: {
+    display: "inline-flex",
+    flexFlow: "row wrap",
+    maxWidth: "550px"
+  },
+  userContainerLg: {
+    display: "inline-flex",
+    flexFlow: "row wrap",
+    maxWidth: "1125px"
+  },
   uniquebg: {
     position: "absolute",
     zIndex: -1
@@ -77,7 +87,8 @@ const styles = createStyles({
   },
   best: {
     padding: "0 6px 36px 6px",
-    backgroundColor: "#d8fadd"
+    backgroundColor: "#d8fadd",
+    textAlign: "center"
   },
   worst: {
     padding: "0 6px 36px 6px",
@@ -85,10 +96,6 @@ const styles = createStyles({
     textAlign: "center"
   },
   bestTop: {
-    textAlign: "center"
-  },
-  bestOther: {
-    width: "100%",
     textAlign: "center"
   },
   group: {
