@@ -6,6 +6,8 @@ const DetailContainer = React.lazy(() => import("../containers/Detail"));
 const InfoListContainer = React.lazy(() => import("../containers/InfoList"));
 const InfoUploadRecordContainer = React.lazy(() => import("../containers/InfoUploadRecord"));
 
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import style from "../styles/Info";
 import { UserInfoType, checkLoginStatus } from "../model/checkLoginStatus";
 
@@ -18,19 +20,15 @@ interface Props extends RouteComponentProps {
 }
 
 class InfoView extends React.PureComponent<WithStyles & Props> {
-  routeRender = (Component: React.LazyExoticComponent<React.ComponentType>) => (props: RouteComponentProps) => (
-    <Component />
-  );
   render() {
-    const { classes } = this.props;
     return (
-      <div className={classes.infoRoot}>
+      <React.Suspense fallback={<CircularProgress />}>
         <Switch>
-          <Route path="/info/list/:page" render={this.routeRender(InfoListContainer)} />
-          <Route path="/info/record/:page" render={this.routeRender(InfoUploadRecordContainer)} />
-          <Route path="/info/detail/:id" render={this.routeRender(DetailContainer)} />
+          <Route path="/info/list/:page" component={(props: any) => <InfoListContainer {...props} />} />
+          <Route path="/info/record/:page" component={(props: any) => <InfoUploadRecordContainer {...props} />} />
+          <Route path="/info/detail/:id" component={(props: any) => <DetailContainer {...props} />} />
         </Switch>
-      </div>
+      </React.Suspense>
     );
   }
   async componentDidMount() {
