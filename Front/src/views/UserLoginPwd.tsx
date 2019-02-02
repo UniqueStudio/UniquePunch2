@@ -53,10 +53,6 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
     if (responseRaw.data.code === 1 && this.mounted) {
       const { isAdmin, avatar, username, token } = responseRaw.data.msg;
       this.props.login(token, isAdmin, avatar, username);
-      this.setState({
-        showNotification: true,
-        msgNotification: `尊敬的${username}，登陆成功，欢迎回来！`
-      });
       this.props.history.push({
         pathname: "/info/list/1"
       });
