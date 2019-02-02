@@ -59,13 +59,10 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
     } else {
       this.setState({
         showNotification: true,
-        msgNotification: responseRaw.data.msg
+        msgNotification: responseRaw.data.msg,
+        loginBtnActive: true
       });
     }
-
-    this.setState({
-      loginBtnActive: true
-    });
   };
   handleWxLogin = () => {
     this.props.history.push({ pathname: "/user/login/wx" });
@@ -140,6 +137,9 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
   }
   componentDidMount() {
     this.mounted = true;
+    this.setState({
+      loginBtnActive: true
+    });
   }
   componentWillUnmount() {
     this.mounted = false;

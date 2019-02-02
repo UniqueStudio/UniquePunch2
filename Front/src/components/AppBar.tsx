@@ -14,7 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import styles from "../styles/Bar";
 import { Logout, Login } from "src/reducers/action";
 import RabbitAjax from "../model/ajax";
-import { userInfo, uploadFile } from "../model/consts";
+import { userInfo, uploadFile, updateRuntime } from "../model/consts";
 
 interface Props extends WithStyles {
   loginStatus: boolean;
@@ -90,6 +90,15 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
       showMenu: null
     });
   };
+  handleUpdateUserInfo = () => {
+    this.setState({
+      showMenu: null
+    });
+    (async function() {
+      await RabbitAjax.get(updateRuntime);
+      alert("已经向服务器发送请求，服务器会立即异步更新数据，请耐心等待！");
+    })();
+  };
   render() {
     const { classes, loginStatus, isAdmin } = this.props;
     const { showMenu } = this.state;
@@ -131,15 +140,21 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
                     </MenuItem>
                   ]}
 
-                  {loginStatus && isAdmin && (
-                    <MenuItem>
-                      <label htmlFor="fileUpload" className={classes.uploadBtn}>
-                        上传文件
-                      </label>
-                    </MenuItem>
-                  )}
+                  {loginStatus &&
+                    isAdmin && [
+                      <MenuItem key="3">
+                        <label htmlFor="fileUpload" className={classes.uploadBtn}>
+                          上传文件
+                        </label>
+                      </MenuItem>,
+                      <MenuItem onClick={this.handleUpdateUserInfo} key="4">
+                        更新用户
+                      </MenuItem>
+                    ]}
 
-                  <MenuItem onClick={this.handleLogout}>注销登录</MenuItem>
+                  <MenuItem onClick={this.handleLogout} key="5">
+                    注销登录
+                  </MenuItem>
                 </Menu>
               </div>
             ) : (

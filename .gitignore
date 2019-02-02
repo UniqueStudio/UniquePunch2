@@ -1,5 +1,5 @@
 */node_modules/
 .env
-*/avatar/*
+*/avatar/*.avatar
 /Back/output/*
 Back/docker-compose.yml

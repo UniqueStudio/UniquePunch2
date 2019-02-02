@@ -3,9 +3,9 @@ export const wxSECRET = process.env.WXSECRET as string;
 export const secret = process.env.SECRET as string;
 
 export const getUserListURL = (accessToken: string, department: number) =>
-    `https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=${accessToken}&department_id=${department.toString()}&fetch_child=0`;
+    `https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=${accessToken}&department_id=${department.toString()}&fetch_child=1`;
 export const getGroupURL = (accessToken: string) =>
-    `https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=${accessToken}&id=ID`;
+    `https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=${accessToken}`;
 export const accessTokenURL = `https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=${wxAppID}&corpsecret=${wxSECRET}`;
 
 export const PAGESIZE = 20;

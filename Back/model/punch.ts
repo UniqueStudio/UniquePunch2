@@ -87,6 +87,7 @@ export const processPunch = async function(path: string) {
                 }
             }
         );
+        console.log(`Processed Punch Data! ${processResult.insertedId}`);
     } catch (e) {
         await db.collection("upload").updateOne(
             {

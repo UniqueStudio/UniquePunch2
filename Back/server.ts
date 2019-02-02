@@ -6,7 +6,7 @@ import multer from "multer";
 import { infoProcess, infoList, infoDelete, infoDetail, infoUploadAPIProcess, infoRecord } from "./model/info";
 import { userLogin, userAvatar, userLoginQrCode, userLoginScan, userInfo } from "./model/user";
 import { runtimeExec } from "./model/runtime";
-import { fileDestination, fileFilter, fileName } from "./model/upload";
+import { fileDestination, fileFilter, fileName, fileNameAnonymous } from "./model/upload";
 
 const SERVER_VERSION = "1.02";
 const app = express();
@@ -34,6 +34,16 @@ const upload = multer({
     fileFilter: fileFilter
 }); //20MB
 
+const storageAnonymous = multer.diskStorage({
+    destination: fileDestination,
+    filename: fileNameAnonymous
+});
+
+const uploadAnonymous = multer({
+    storage: storageAnonymous,
+    limits: { fileSize: 20971520 }
+}); //20MB
+
 app.use((_req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "POST, GET");
@@ -57,7 +67,7 @@ app.get("/user/qrcode", userLoginQrCode);
 app.get("/user/scan/:key", userLoginScan);
 
 //Upload API
-app.post("/upload/:timestamp/:secret", upload.single("data"), infoUploadAPIProcess);
+app.post("/upload/:timestamp/:secret", uploadAnonymous.single("data"), infoUploadAPIProcess);
 
 //Runtime API
 app.get("/runtime", runtimeExec);

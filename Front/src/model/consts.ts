@@ -10,3 +10,4 @@ export const recordList = (page: string) => `${domainURL}info/record/${page}`;
 export const detailInfo = (id: string) => `${domainURL}info/detail/${id}`;
 export const deleteInfo = (id: string) => `${domainURL}info/delete/${id}`;
 export const uploadFile = `${domainURL}info/process`;
+export const updateRuntime = `${domainURL}runtime`;

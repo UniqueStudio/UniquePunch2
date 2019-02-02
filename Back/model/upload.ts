@@ -44,3 +44,11 @@ export const fileName = function(
         cb(null, `ERR_${new Date().getTime()}.punish`);
     }
 };
+
+export const fileNameAnonymous = function(
+    _req: Express.Request,
+    _file: Express.Multer.File,
+    cb: (error: Error | null, filename: string) => void
+) {
+    cb(null, `Anonymous_${new Date().getTime()}.punish`);
+};
