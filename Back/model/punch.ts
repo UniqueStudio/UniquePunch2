@@ -53,7 +53,7 @@ export const processPunch = async function(path: string) {
 
         punchDatas.sort(($1, $2) => $2.time - $1.time);
 
-        const exceptUserJoinPeriod = process.env.EXCEPT || "20162";
+        const exceptUserJoinPeriod: number = +(process.env.EXCEPT || "20162");
 
         const punchDatasFullRaw = await Promise.all(
             punchDatas.map(async item => {

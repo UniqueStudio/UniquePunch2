@@ -22,7 +22,7 @@ async function downloadImg(url: string, path: string) {
     }
 }
 
-function processJoinTime(user: any): string {
+function processJoinTime(user: any): number {
     const attrArray: any[] = user.extattr.attrs;
     let result: string = new Date().getFullYear().toString() + "1";
     attrArray.some(item => {
@@ -40,7 +40,7 @@ function processJoinTime(user: any): string {
         return testResult;
     });
 
-    return result;
+    return +result;
 }
 
 export const runtimeUserList = async function() {
