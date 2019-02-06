@@ -51,8 +51,6 @@ export const processPunch = async function(path: string) {
         const punchDatas = handlePunchData(XLSX.read(data, { type: "binary" }));
         const dateRange = XLSX.read(data, { type: "binary" }).Props!.Comments!;
 
-        punchDatas.sort(($1, $2) => $2.time - $1.time);
-
         const exceptUserJoinPeriod: number = +(process.env.EXCEPT || "20162");
 
         const punchDatasFullRaw = await Promise.all(
@@ -72,7 +70,13 @@ export const processPunch = async function(path: string) {
 
         const punchDatasFull = punchDatasFullRaw.filter(item => item !== undefined) as Array<punchDataInfo>;
 
-        punchDatasFull.sort(($1, $2) => ($1.time === 0 && $2.time === 0 && $1.group < $2.group ? -1 : 0));
+        punchDatasFull.sort(($1, $2) => {
+            if ($1.time === 0 && $2.time === 0) {
+                return $1.group < $2.group ? -1 : 0;
+            } else {
+                return $2.time - $1.time;
+            }
+        });
 
         await db.collection("sign").insertOne({
             title: `${dateRange.replace(/ /g, "").replace("~", " - ")}`,
