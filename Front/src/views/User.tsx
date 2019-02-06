@@ -31,7 +31,6 @@ class UserView extends React.PureComponent<Props & RouteComponentProps> {
         const token = localStorage.getItem("token") || "";
         const { isAdmin, avatar, username } = data as UserInfoType;
         this.props.login(token, isAdmin, avatar, username);
-      } else {
         this.props.history.push({
           pathname: "/info/list/1"
         });

@@ -71,6 +71,9 @@ export const processPunch = async function(path: string) {
         );
 
         const punchDatasFull = punchDatasFullRaw.filter(item => item !== undefined) as Array<punchDataInfo>;
+
+        punchDatasFull.sort(($1, $2) => ($1.time === 0 && $2.time === 0 && $1.group < $2.group ? -1 : 0));
+
         await db.collection("sign").insertOne({
             title: `${dateRange.replace(/ /g, "").replace("~", " - ")}`,
             data: punchDatasFull,
