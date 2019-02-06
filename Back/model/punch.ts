@@ -3,7 +3,7 @@ import * as fs from "fs";
 import { databaseConnect } from "./db";
 import { md5Calculate } from "./check";
 
-export interface punchDataInfo {
+export interface PunchDataInfo {
     _id: any;
     name: string;
     time: number;
@@ -68,7 +68,7 @@ export const processPunch = async function(path: string) {
             })
         );
 
-        const punchDatasFull = punchDatasFullRaw.filter(item => item !== undefined) as Array<punchDataInfo>;
+        const punchDatasFull = punchDatasFullRaw.filter(item => item !== undefined) as Array<PunchDataInfo>;
 
         punchDatasFull.sort(($1, $2) => {
             if ($1.time === 0 && $2.time === 0) {
