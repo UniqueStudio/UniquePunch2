@@ -1,12 +1,16 @@
 import * as React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { reducers } from "./reducers/reducers";
 import { Provider } from "react-redux";
+import sagaRoot from "./reducers/sagas";
+import createSagaMiddleware from "redux-saga";
 import Index from "./views/Index";
 import "./App.css";
 
-export const store = createStore(reducers);
+const sagaMiddleware = createSagaMiddleware();
+export const store = createStore(reducers, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(sagaRoot);
 
 class App extends React.Component {
   public render() {

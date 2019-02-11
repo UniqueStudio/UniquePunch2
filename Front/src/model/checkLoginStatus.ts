@@ -13,12 +13,11 @@ export const checkLoginStatus = async function() {
     if (responseRaw.data.code === 1) {
         return {
             status: true,
-            data: responseRaw.data.msg
+            data: responseRaw.data.msg as UserInfoType
         };
     } else {
         return {
-            status: false,
-            data: {}
+            status: false
         };
     }
 };

@@ -14,7 +14,7 @@ import Menu from "@material-ui/core/Menu";
 import styles from "../styles/Bar";
 import { Logout, Login } from "src/reducers/action";
 import RabbitAjax from "../model/ajax";
-import { userInfo, uploadFile, updateRuntime } from "../model/consts";
+import { uploadFile, updateRuntime } from "../model/consts";
 
 interface Props extends WithStyles {
   loginStatus: boolean;
@@ -46,7 +46,6 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
       uploading: false
     });
     if (responseRaw.data.code === 1) {
-      this.componentDidMount();
       alert("文件上传成功！");
     } else {
       alert(responseRaw.data.msg);
@@ -170,18 +169,6 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
         </AppBar>
       </div>
     );
-  }
-  async componentDidMount() {
-    const token = localStorage.getItem("token");
-    if (!this.props.loginStatus && token) {
-      const responseRaw = await RabbitAjax.post(userInfo);
-      if (responseRaw.data.code === 1) {
-        const { isAdmin, username, avatar } = responseRaw.data.msg;
-        this.props.login(token, isAdmin, avatar, username);
-      } else {
-        localStorage.removeItem("token");
-      }
-    }
   }
 }
 

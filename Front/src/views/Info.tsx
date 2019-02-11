@@ -9,14 +9,11 @@ const InfoUploadRecordContainer = React.lazy(() => import("../containers/InfoUpl
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import style from "../styles/Info";
-import { UserInfoType, checkLoginStatus } from "../model/checkLoginStatus";
 
-import { RouteComponentProps } from "react-router";
-import { Login } from "src/reducers/action";
+import { RouteComponentProps, Redirect } from "react-router";
 
 interface Props extends RouteComponentProps {
   loginStatus: boolean;
-  login: (token: string, isAdmin: boolean, avatar: string, username: string) => Login;
 }
 
 class InfoView extends React.PureComponent<WithStyles & Props> {
@@ -24,26 +21,13 @@ class InfoView extends React.PureComponent<WithStyles & Props> {
     return (
       <React.Suspense fallback={<CircularProgress />}>
         <Switch>
+          {!this.props.loginStatus && <Redirect to="/user/login/pwd" />}
           <Route path="/info/list/:page" component={(props: any) => <InfoListContainer {...props} />} />
           <Route path="/info/record/:page" component={(props: any) => <InfoUploadRecordContainer {...props} />} />
           <Route path="/info/detail/:id" component={(props: any) => <DetailContainer {...props} />} />
         </Switch>
       </React.Suspense>
     );
-  }
-  async componentDidMount() {
-    if (!this.props.loginStatus) {
-      const { status, data } = await checkLoginStatus();
-      if (status) {
-        const token = localStorage.getItem("token") || "";
-        const { isAdmin, avatar, username } = data as UserInfoType;
-        this.props.login(token, isAdmin, avatar, username);
-      } else {
-        this.props.history.push({
-          pathname: "/user/login/pwd"
-        });
-      }
-    }
   }
 }
 

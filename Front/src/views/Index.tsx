@@ -2,6 +2,7 @@ import * as React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { withRouter } from "react-router";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { store } from "../App";
 
 const UserContainer = React.lazy(() => import("../containers/User"));
 const InfoContainer = React.lazy(() => import("../containers/Info"));
@@ -26,6 +27,9 @@ class Index extends React.PureComponent {
         <Footer />
       </React.Suspense>
     );
+  }
+  componentDidMount() {
+    store.dispatch({ type: "CHECK_LOGIN_STATUS_ASYNC" });
   }
 }
 

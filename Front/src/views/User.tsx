@@ -1,10 +1,9 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
-import { RouteComponentProps } from "react-router";
+import { RouteComponentProps, Redirect } from "react-router";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Login } from "../reducers/action";
-import { checkLoginStatus, UserInfoType } from "../model/checkLoginStatus";
 const UserLoginWx = React.lazy(() => import("../containers/UserLoginWx"));
 const UserLoginPwd = React.lazy(() => import("../containers/UserLoginPwd"));
 
@@ -18,24 +17,12 @@ class UserView extends React.PureComponent<Props & RouteComponentProps> {
     return (
       <React.Suspense fallback={<CircularProgress />}>
         <Switch>
+          {this.props.loginStatus && <Redirect to="/info/list/1" />}
           <Route path="/user/login/pwd" component={(props: any) => <UserLoginPwd {...props} />} />
           <Route path="/user/login/wx" component={(props: any) => <UserLoginWx {...props} />} />
         </Switch>
       </React.Suspense>
     );
-  }
-  async componentDidMount() {
-    if (!this.props.loginStatus) {
-      const { status, data } = await checkLoginStatus();
-      if (status) {
-        const token = localStorage.getItem("token") || "";
-        const { isAdmin, avatar, username } = data as UserInfoType;
-        this.props.login(token, isAdmin, avatar, username);
-        this.props.history.push({
-          pathname: "/info/list/1"
-        });
-      }
-    }
   }
 }
 
