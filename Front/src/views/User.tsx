@@ -3,13 +3,12 @@ import { Route, Switch } from "react-router-dom";
 import { RouteComponentProps, Redirect } from "react-router";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Login } from "../reducers/action";
+
 const UserLoginWx = React.lazy(() => import("../containers/UserLoginWx"));
 const UserLoginPwd = React.lazy(() => import("../containers/UserLoginPwd"));
 
 interface Props {
   loginStatus: boolean;
-  login: (token: string, isAdmin: boolean, avatar: string, username: string) => Login;
 }
 
 class UserView extends React.PureComponent<Props & RouteComponentProps> {
