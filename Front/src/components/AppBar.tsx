@@ -94,10 +94,12 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
     this.setState({
       showMenu: null
     });
-    (async function() {
-      await RabbitAjax.get(updateRuntime);
+    if (confirm("是否要更新用户信息？这可能需要一段时间！")) {
+      (async function() {
+        await RabbitAjax.get(updateRuntime);
+      })();
       alert("已经向服务器发送请求，服务器会立即异步更新数据，请耐心等待！");
-    })();
+    }
   };
   render() {
     const { classes, loginStatus, isAdmin } = this.props;
