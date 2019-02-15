@@ -96,7 +96,17 @@ export const runtimeUserList = async function() {
         }
         for (const userInfo of userListData.userlist) {
             console.log(`Processing Data: ${userInfo.name}`);
-            avatarList.push({ userid: userInfo.userid, avatarUrl: userInfo.avatar });
+
+            const nowResult = await db.collection("user").findOne({ userid: userInfo.userid });
+            if (
+                !nowResult ||
+                !nowResult.avatar ||
+                nowResult.avatar !== userInfo.avatar ||
+                !fs.existsSync(`./avatar/${userInfo.userid}.avatar`)
+            ) {
+                avatarList.push({ userid: userInfo.userid, avatarUrl: userInfo.avatar });
+            }
+
             allGroupMemberActive[userInfo.userid] = true;
             await db.collection("user").updateOne(
                 { userid: userInfo.userid },
@@ -105,7 +115,8 @@ export const runtimeUserList = async function() {
                         userid: userInfo.userid,
                         name: userInfo.name,
                         group: userInfo.department.map((item: number) => groupMap.get(item)),
-                        join: processJoinTime(userInfo)
+                        join: processJoinTime(userInfo),
+                        avatar: userInfo.avatar
                     }
                 },
                 { upsert: true }
