@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 import express from "express";
-import * as bodyParser from "body-parser";
+import bodyParser from "body-parser";
 import multer from "multer";
 import { infoProcess, infoList, infoDelete, infoDetail, infoUploadAPIProcess, infoRecord } from "./model/info";
 import { userLogin, userAvatar, userLoginQrCode, userLoginScan, userInfo } from "./model/user";

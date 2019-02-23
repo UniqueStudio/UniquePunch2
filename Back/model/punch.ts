@@ -1,5 +1,5 @@
 import XLSX from "xlsx";
-import * as fs from "fs";
+import fs from "fs";
 import { databaseConnect } from "./db";
 import { md5Calculate } from "./check";
 

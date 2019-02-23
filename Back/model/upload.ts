@@ -1,4 +1,4 @@
-import * as fs from "fs";
+import fs from "fs";
 import { verifyJWT } from "./check";
 
 const MODE = process.env.MODE;

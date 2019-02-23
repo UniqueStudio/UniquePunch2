@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import fetch from "node-fetch";
-import * as fs from "fs";
+import fs from "fs";
 import { signJWT, verifyJWT } from "./check";
 import { databaseConnect } from "./db";
 import { ObjectID } from "bson";

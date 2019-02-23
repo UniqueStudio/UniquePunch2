@@ -3,7 +3,7 @@ import { accessTokenURL, getUserListURL, getGroupURL } from "../model/consts";
 import { verifyJWT } from "./check";
 import { Request, Response } from "express";
 import fetch from "node-fetch";
-import * as fs from "fs";
+import fs from "fs";
 
 const joinPeriod = new Map<string, string>();
 joinPeriod.set("春", "1");
