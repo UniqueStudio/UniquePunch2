@@ -34,10 +34,7 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
     showNotification: false,
     msgNotification: ""
   };
-  handleLogin = async () => {
-    this.setState({
-      loginBtnActive: false
-    });
+  handleLoginProcess = async () => {
     const pwdMd5 = crypto
       .createHash("md5")
       .update(this.state.password)
@@ -63,6 +60,12 @@ class UserLoginPwdView extends React.PureComponent<RouteComponentProps & Props> 
         loginBtnActive: true
       });
     }
+  };
+  handleLogin = () => {
+    this.setState({
+      loginBtnActive: false
+    });
+    this.handleLoginProcess();
   };
   handleWxLogin = () => {
     this.props.history.push({ pathname: "/user/login/wx" });

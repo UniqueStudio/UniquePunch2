@@ -10,7 +10,7 @@ export const userLogin = async function(req: Request, res: Response) {
         const { nickname, pwd } = req.body;
         //Pwd在前端执行一次MD5加密，发给后端的时候，已经是加密过的MD5版本，后端再加盐验证
         //此处的Pwd已经是MD5加密过的密码，不是原始的明文密码！
-        const url = `${process.env.SERVER}user/login/pwd`;
+        const url = `${process.env.SERVER}api/user/login/pwd`;
 
         const resultRaw = await fetch(url, {
             method: "post",
@@ -69,7 +69,7 @@ export const userAvatar = async function(req: Request, res: Response) {
 
 export const userLoginQrCode = async function(_req: Request, res: Response) {
     try {
-        const url = `${process.env.SERVER}user/login/qrcode`;
+        const url = `${process.env.SERVER}api/user/login/qrcode`;
         const responseRaw = await fetch(url);
         const responseJSON = await responseRaw.json();
         res.json(responseJSON);
@@ -98,7 +98,7 @@ export const userInfo = async function(req: Request, res: Response) {
 export const userLoginScan = async function(req: Request, res: Response) {
     try {
         const { key } = req.params;
-        const url = `${process.env.SERVER}user/login/scan/${key}/status`;
+        const url = `${process.env.SERVER}api/user/login/scan/${key}/status`;
         const responseRaw = await fetch(url);
         const responseJSON = await responseRaw.json();
         res.json(responseJSON);

@@ -12,7 +12,7 @@ export const login = function(token: string, isAdmin: boolean, avatar: string, u
     return {
         type: LOGIN,
         token,
-        avatar,
+        avatar: `http://localhost:7010` + avatar,
         username,
         isAdmin,
         loginStatus: true

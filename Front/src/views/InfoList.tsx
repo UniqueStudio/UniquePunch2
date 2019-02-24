@@ -106,19 +106,18 @@ class InfoListView extends React.PureComponent<Props & RouteComponentProps<Param
     if (page === this.previousPage) return;
     this.previousPage = page;
     const responseRaw = await RabbitAjax.get(infoList(page));
-    if (responseRaw.data.code === 1) {
+    if (responseRaw.data.code === 1 && this.props.loginStatus) {
       this.setState({
         itemCollection: responseRaw.data.msg.collection,
         total: responseRaw.data.msg.total
       });
     }
   }
-  componentDidUpdate() {
-    this.getInfo();
-  }
   componentDidMount() {
-    this.previousPage = "-1";
-    this.getInfo();
+    if (this.props.loginStatus) {
+      this.previousPage = "-1";
+      this.getInfo();
+    }
   }
 }
 

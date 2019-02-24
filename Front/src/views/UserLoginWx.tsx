@@ -68,7 +68,6 @@ class UserLoginWxView extends React.PureComponent<Props & RouteComponentProps> {
     if (this.onShow && key === this.state.key) {
       if (responseRaw.data.code === 1) {
         const { isAdmin, avatar, username, token } = responseRaw.data.msg;
-        console.log(this);
         this.props.login(token, isAdmin, avatar, username);
         this.setState({
           showNotification: true,

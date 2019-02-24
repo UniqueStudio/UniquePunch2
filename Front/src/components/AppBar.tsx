@@ -75,6 +75,7 @@ class Bar extends React.PureComponent<RouteComponentProps & Props> {
       pathname: "/user/login/pwd"
     });
     this.handleClose();
+    location.reload();
   };
   handleClose = () => {
     this.setState({
