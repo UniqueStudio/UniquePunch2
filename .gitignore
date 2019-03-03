@@ -3,3 +3,4 @@
 */avatar/*.avatar
 /Back/output/*
 Back/docker-compose.yml
+backup/
