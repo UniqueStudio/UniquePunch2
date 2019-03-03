@@ -12,7 +12,7 @@ export const login = function(token: string, isAdmin: boolean, avatar: string, u
     return {
         type: LOGIN,
         token,
-        avatar: `http://localhost:7010` + avatar,
+        avatar: `https://bbs.hustunique.com` + avatar,
         username,
         isAdmin,
         loginStatus: true
