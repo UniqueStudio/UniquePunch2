@@ -56,7 +56,7 @@ export const processPunch = async function(path: string) {
         const punchDatasFullRaw = await Promise.all(
             punchDatas.map(async item => {
                 const db_info = await db.collection("user").findOne({ name: item.name });
-                if (db_info && db_info.join > exceptUserJoinPeriod && !db_info.except) {
+                if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except))) {
                     return {
                         ...item,
                         _id: db_info._id,
