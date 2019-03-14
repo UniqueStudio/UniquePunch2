@@ -5,11 +5,6 @@ import { Request, Response } from "express";
 import fetch from "node-fetch";
 import fs from "fs";
 
-const joinPeriod = new Map<string, string>();
-joinPeriod.set("春", "1");
-joinPeriod.set("夏", "2");
-joinPeriod.set("秋", "3");
-
 async function downloadImg(url: string, path: string) {
     try {
         const result = await fetch(encodeURI(url));
@@ -28,11 +23,17 @@ function processJoinTime(user: any): number {
     attrArray.some(item => {
         const testResult = /加入时间/g.test(item.name);
         if (testResult) {
-            let year = Number.parseInt(item.value.substr(0, 4));
-            let period = joinPeriod.get(item.value.substr(4, 1));
-            if (!period) {
-                period = "0";
+            let year = +item.value.substr(0, 4);
+            let period = "0";
+
+            if (/春/.test(item.value)) {
+                period = "1";
+            } else if (/夏/.test(item.value)) {
+                period = "2";
+            } else if (/秋/.test(item.value)) {
+                period = "3";
             }
+
             if (!Object.is(year, NaN) && period) {
                 result = year + period;
             }
