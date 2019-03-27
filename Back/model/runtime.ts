@@ -70,7 +70,9 @@ export const runtimeUserList = async function() {
         name: item.name
     }));
     groupListData.department.forEach((item: any) => {
-        groupMap.set(item.id, item.name);
+        if (+item.id < 14) {
+            groupMap.set(item.id, item.name);
+        }
     });
     const avatarList: Array<{ userid: string; avatarUrl: string }> = [];
     //<-- get user list

@@ -51,12 +51,14 @@ export const processPunch = async function(path: string) {
         const punchDatas = handlePunchData(XLSX.read(data, { type: "binary" }));
         const dateRange = XLSX.read(data, { type: "binary" }).Props!.Comments!;
 
-        const exceptUserJoinPeriod: number = +(process.env.EXCEPT || "20162");
+        const exceptUserJoinPeriod: number = +(process.env.EXCEPT || "20172");
 
         const punchDatasFullRaw = await Promise.all(
             punchDatas.map(async item => {
                 const db_info = await db.collection("user").findOne({ name: item.name });
-                if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except))) {
+                const isOld = (db_info.group as any[]).some(item => +item >= 14);
+
+                if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except && !isOld))) {
                     return {
                         ...item,
                         _id: db_info._id,
