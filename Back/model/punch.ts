@@ -56,14 +56,17 @@ export const processPunch = async function(path: string) {
         const punchDatasFullRaw = await Promise.all(
             punchDatas.map(async item => {
                 const db_info = await db.collection("user").findOne({ name: item.name });
-                const isOld = (db_info.group as any[]).some(item => +item >= 14);
-
-                if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except && !isOld))) {
-                    return {
-                        ...item,
-                        _id: db_info._id,
-                        group: db_info.group
-                    };
+                if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except))) {
+                    const isOld = (db_info.group as any[]).some(item => +item >= 14);
+                    if (isOld) {
+                        return undefined;
+                    } else {
+                        return {
+                            ...item,
+                            _id: db_info._id,
+                            group: db_info.group
+                        };
+                    }
                 } else {
                     return undefined;
                 }
