@@ -65,15 +65,18 @@ export const runtimeUserList = async function() {
         console.log(`Error getting group list: ${groupListData}`);
         return;
     }
-    const groupList: Array<{ id: number; name: string }> = groupListData.department.map((item: any) => ({
-        id: item.id,
-        name: item.name
-    }));
+    const groupList: Array<{ id: number; name: string }> = (groupListData.department as any[])
+        .map((item: any) => ({
+            id: item.id,
+            name: item.name
+        }))
+        .filter(item => item.id < 14);
     groupListData.department.forEach((item: any) => {
         if (+item.id < 14) {
             groupMap.set(item.id, item.name);
         }
     });
+
     const avatarList: Array<{ userid: string; avatarUrl: string }> = [];
     //<-- get user list
     for (const group of groupList) {
@@ -117,7 +120,9 @@ export const runtimeUserList = async function() {
                     $set: {
                         userid: userInfo.userid,
                         name: userInfo.name,
-                        group: userInfo.department.map((item: number) => groupMap.get(item)),
+                        group: (userInfo.department as any[])
+                            .map((item: number) => groupMap.get(item))
+                            .filter(item => !!item),
                         join: processJoinTime(userInfo),
                         avatar: userInfo.avatar
                     }
