@@ -114,18 +114,26 @@ export const runtimeUserList = async function() {
             }
 
             allGroupMemberActive[userInfo.userid] = true;
+
+            const isOld = (userInfo.department as any[]).some(item => +item >= 14);
+
+            const setObj = {
+                userid: userInfo.userid,
+                name: userInfo.name,
+                group: (userInfo.department as any[]).map((item: number) => groupMap.get(item)).filter(item => !!item),
+                join: processJoinTime(userInfo),
+                avatar: userInfo.avatar
+            };
+
             await db.collection("user").updateOne(
                 { userid: userInfo.userid },
                 {
-                    $set: {
-                        userid: userInfo.userid,
-                        name: userInfo.name,
-                        group: (userInfo.department as any[])
-                            .map((item: number) => groupMap.get(item))
-                            .filter(item => !!item),
-                        join: processJoinTime(userInfo),
-                        avatar: userInfo.avatar
-                    }
+                    $set: isOld
+                        ? {
+                              ...setObj,
+                              except: 1
+                          }
+                        : setObj
                 },
                 { upsert: true }
             );
