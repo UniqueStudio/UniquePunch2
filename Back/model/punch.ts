@@ -58,6 +58,10 @@ export const processPunch = async function(path: string) {
                 const db_info = await db.collection("user").findOne({ name: item.name });
                 if (db_info && (db_info.must || (db_info.join > exceptUserJoinPeriod && !db_info.except))) {
                     const isOld = (db_info.group as any[]).some(item => +item >= 14);
+
+                    // filter if only want to see one group
+                    // const haveSomeGroup = (db_info.group as any[]).includes("Web");
+
                     if (isOld) {
                         return undefined;
                     } else {
