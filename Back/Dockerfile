@@ -1,5 +1,6 @@
 FROM node:alpine
 
+RUN mkdir -p /var/punch
 WORKDIR /var/punch
 
 COPY package.json .
