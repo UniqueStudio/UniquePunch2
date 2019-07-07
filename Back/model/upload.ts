@@ -11,9 +11,8 @@ export const fileDestination = function(
     const date = new Date();
     const dirName =
         date.getFullYear().toString() + "_" + (date.getMonth() + 1).toString() + "_" + date.getDate().toString();
-    const parentDir = MODE === "DEV" ? `./upload` : `/var/punish/upload`;
+    const parentDir = MODE === "DEV" ? `./upload` : `/var/punch/upload`;
     const childDir = `${parentDir}/${dirName}`;
-    if (!fs.existsSync(MODE === "DEV" ? `./upload` : "/var/punish/upload")) fs.mkdirSync("/var/punish/upload");
     if (!fs.existsSync(parentDir)) fs.mkdirSync(parentDir);
     if (!fs.existsSync(childDir)) fs.mkdirSync(childDir);
     cb(null, `${childDir}/`);
@@ -27,7 +26,8 @@ export const fileFilter = function(
     try {
         verifyJWT((req as any)["header"]("Authorization"));
         cb(null, true);
-    } catch {
+    } catch (e) {
+        console.error(e);
         cb(null, false);
     }
 };
@@ -39,9 +39,9 @@ export const fileName = function(
 ) {
     try {
         const { uid } = verifyJWT((req as any)["header"]("Authorization"));
-        cb(null, `${uid}_${new Date().getTime()}.punish`);
+        cb(null, `${uid}_${new Date().getTime()}.punch`);
     } catch {
-        cb(null, `ERR_${new Date().getTime()}.punish`);
+        cb(null, `ERR_${new Date().getTime()}.punch`);
     }
 };
 
@@ -50,5 +50,5 @@ export const fileNameAnonymous = function(
     _file: Express.Multer.File,
     cb: (error: Error | null, filename: string) => void
 ) {
-    cb(null, `Anonymous_${new Date().getTime()}.punish`);
+    cb(null, `Anonymous_${new Date().getTime()}.punch`);
 };
