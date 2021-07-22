@@ -9,7 +9,7 @@
     "@types/node": "^10.11.4",
     "axios": "^0.21.1",
     "canvas": "^1.6.12",
-    "xlsx": "^0.14.0"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@types/xlsx": "^0.0.36",
